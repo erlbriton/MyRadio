@@ -75,9 +75,7 @@ void setup() {
   Serial.begin(115200);
   //----------------------Modbus--------------------------------------
   Serial.println("ModbusRTU Slave стартует...");
-  pinMode(GPIO_OUT, OUTPUT);
-  digitalWrite(GPIO_OUT, LOW); // По умолчанию выключено
-  Serial2.begin(115200, SERIAL_8N1, 16, 17); // UART2: RX=GPIO16, TX=GPIO17
+  Serial2.begin(115200, SERIAL_8N1, 25, 26); // UART2: RX=GPIO16, TX=GPIO17
 //----------------------------------------------------------------------------
   if(REAL_LEDBUILTIN!=255) pinMode(REAL_LEDBUILTIN, OUTPUT);
   if (yoradio_on_setup) yoradio_on_setup();
@@ -135,17 +133,8 @@ void loop() {
   loopControls();
   netserver.loop();
   //----------------Modbus---------------------------------------
- mb.task();
 
-  // Читаем текущее значение регистра 0
-  uint16_t val = mb.Hreg(0);
-
-  // Управляем GPIO32 в зависимости от значения
-  if (val == 1) {
-    digitalWrite(32, HIGH);
-  } else {
-    digitalWrite(32, LOW);
-  }
+  
   //---------------------Проверка UART------------------------------------------
   // Serial2.print("9876543210");
   // Serial2.print("\r\n"); // Перевод строки
