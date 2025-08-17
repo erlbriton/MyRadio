@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PlatformIO: Build & Monitor",
+            "type": "shell",
+            "command": "pio run && pio device monitor --port ${input:port} --baud ${input:baud}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "inputs": [
+                {
+                    "id": "port",
+                    "type": "promptString",
+                    "description": "Enter device port (e.g. /dev/ttyUSB0)",
+                    "default": "/dev/ttyUSB0"
+                },
+                {
+                    "id": "baud",
+                    "type": "promptString",
+                    "description": "Enter baud rate",
+                    "default": "115200"
+                }
+            ]
+        },
+        {
+            "label": "Close Serial Monitor",
+            "type": "shell",
+            "command": "killall -9 screen minicom 2>/dev/null || true"
+        }
+    ]
+}

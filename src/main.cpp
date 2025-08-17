@@ -10,7 +10,7 @@
 #include "core/mqtt.h"
 #include "core/optionschecker.h"
 #include "core/timekeeper.h"
-#include <ModbusRTU.h>
+//#include <ModbusRTU.h>
 
 #define GPIO_OUT 32
 
@@ -67,7 +67,7 @@ void setupOTA(){
 }
 #endif
 
-ModbusRTU mb;
+//ModbusRTU mb;
 uint16_t reg0 = 0;
 uint16_t prevReg0 = 0xFFFF; // Для отслеживания изменений
 
@@ -75,7 +75,7 @@ void setup() {
   Serial.begin(115200);
   //----------------------Modbus--------------------------------------
   Serial.println("ModbusRTU Slave стартует...");
-  Serial2.begin(115200, SERIAL_8N1, 25, 26); // UART2: RX=GPIO16, TX=GPIO17
+  Serial2.begin(115200, SERIAL_8N1, 25, 26);
 //----------------------------------------------------------------------------
   if(REAL_LEDBUILTIN!=255) pinMode(REAL_LEDBUILTIN, OUTPUT);
   if (yoradio_on_setup) yoradio_on_setup();
@@ -115,10 +115,10 @@ void setup() {
   }
   pm.on_end_setup();
   //---------------------------------------------------------------------------------
-  mb.begin(&Serial2, true); // true = режим обработки с аппаратным буфером (IRQ)
-  mb.slave(1); // Адрес slave = 1
- // Добавляем Holding-регистр 0
-  mb.addHreg(0, reg0); // Изначально = 0
+//   mb.begin(&Serial2, true); // true = режим обработки с аппаратным буфером (IRQ)
+//   mb.slave(1); // Адрес slave = 1
+//  // Добавляем Holding-регистр 0
+//   mb.addHreg(0, reg0); // Изначально = 0
 }
 
 void loop() {

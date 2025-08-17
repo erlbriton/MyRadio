@@ -1,0 +1,1 @@
+/home/erlbriton/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h
