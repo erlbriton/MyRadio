@@ -11,6 +11,8 @@
 #include "core/optionschecker.h"
 #include "core/timekeeper.h"
 //#include <ModbusRTU.h>
+#include "Modbus/ModbusHandler.h"
+#include "core/audiohandlers.h"
 
 #define GPIO_OUT 32
 
@@ -68,14 +70,14 @@ void setupOTA(){
 #endif
 
 //ModbusRTU mb;
-uint16_t reg0 = 0;
-uint16_t prevReg0 = 0xFFFF; // Для отслеживания изменений
+// uint16_t reg0 = 0;
+// uint16_t prevReg0 = 0xFFFF; // Для отслеживания изменений
+ModbusHandler modbus;
 
 void setup() {
   Serial.begin(115200);
   //----------------------Modbus--------------------------------------
-  Serial.println("ModbusRTU Slave стартует...");
-  Serial2.begin(115200, SERIAL_8N1, 25, 26);
+ modbus.begin(1);  // Slave ID = 1
 //----------------------------------------------------------------------------
   if(REAL_LEDBUILTIN!=255) pinMode(REAL_LEDBUILTIN, OUTPUT);
   if (yoradio_on_setup) yoradio_on_setup();
@@ -142,6 +144,21 @@ void loop() {
   // Serial2.print("012345678");
   // Serial2.print("\r\n"); // Перевод строки
   // delay(1000); // Раз в секунду
-}
 
-#include "core/audiohandlers.h"
+  static uint32_t lastMillis = 0;
+if (millis() - lastMillis >= 1000) {
+        lastMillis = millis();
+
+        for (uint16_t i = 0; i < 10; i++) {
+            uint16_t val = modbus.readHreg(i);
+            modbus.writeHreg(i, val + 1);
+        }
+
+        // Для отладки — выведем текущее состояние
+        Serial.println("Updated Modbus Holding Registers:");
+        for (uint16_t i = 0; i < 10; i++) {
+            uint16_t val = modbus.readHreg(i);
+            Serial.printf("Hreg[%u] = 0x%04X\n", i, val);
+        }
+    }
+}
