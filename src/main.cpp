@@ -134,9 +134,7 @@ void loop() {
   }
   loopControls();
   netserver.loop();
-  //----------------Modbus---------------------------------------
 
-  
   //---------------------Проверка UART------------------------------------------
   // Serial2.print("9876543210");
   // Serial2.print("\r\n"); // Перевод строки
@@ -145,6 +143,7 @@ void loop() {
   // Serial2.print("\r\n"); // Перевод строки
   // delay(1000); // Раз в секунду
 
+  //Для проверки увеличиваем все регистры раз в секунду
   static uint32_t lastMillis = 0;
 if (millis() - lastMillis >= 1000) {
         lastMillis = millis();
@@ -154,11 +153,11 @@ if (millis() - lastMillis >= 1000) {
             modbus.writeHreg(i, val + 1);
         }
 
-        // Для отладки — выведем текущее состояние
-        Serial.println("Updated Modbus Holding Registers:");
-        for (uint16_t i = 0; i < 10; i++) {
-            uint16_t val = modbus.readHreg(i);
-            Serial.printf("Hreg[%u] = 0x%04X\n", i, val);
-        }
+        // Для отладки — выведем текущее состояние регистров в монитор
+        // Serial.println("Updated Modbus Holding Registers:");
+        // for (uint16_t i = 0; i < 10; i++) {
+        //     uint16_t val = modbus.readHreg(i);
+        //     Serial.printf("Hreg[%u] = 0x%04X\n", i, val);
+        // }
     }
 }

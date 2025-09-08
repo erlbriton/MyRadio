@@ -48,13 +48,19 @@ bool printable(const char *info) {
   if (!p) p = (uint8_t)info[0] >= 0xC2 && (uint8_t)info[1] >= 0x80 && (uint8_t)info[1] <= 0xBF;
   return p;
 }
-
+char newName[170];
 void audio_showstation(const char *info) {
   bool p = printable(info) && (strlen(info) > 0);(void)p;
   //config.setTitle(p?info:config.station.name);
   if(player.remoteStationName){
     config.setStation(p?info:config.station.name);
+
+    strncpy(newName, config.station.name, sizeof(newName) - 1);  // копируем максимум 169 символов
+newName[sizeof(newName)-1] = '\0';            // гарантируем нуль-терминатор
+
+   Serial.printf("++++=========+++++Station name: %s\n", newName);
     display.putRequest(NEWSTATION);
+    Serial.printf("++++=========+++++Station name: %s\n", NEWSTATION);
     netserver.requestOnChange(STATION, 0);
   }
 }

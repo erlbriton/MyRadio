@@ -12,7 +12,7 @@
 #define MODBUS_TX_PIN     32
 #define MODBUS_RX_PIN     34
 #define MODBUS_BAUDRATE   115200
-#define MODBUS_REG_COUNT  10
+#define MODBUS_REG_COUNT  170
 #define MODBUS_STACK_SZ   4096
 #define MODBUS_TASK_PRIO  2
 #define MODBUS_TASK_CORE  1
@@ -44,7 +44,8 @@ public:
         // Регистрируем holding registers в библиотеке — привязка к нашим переменным
         // Если библиотека хранит ссылку — это хорошо; на всякий случай будем держать
         // локальную копию и при записи обновлять и mb.Hreg()
-        for (uint16_t i = 0; i < MODBUS_REG_COUNT; ++i) {
+        for (uint16_t i = 0; i < MODBUS_REG_COUNT; ++i) 
+        {
             mb.addHreg(i, holdingRegisters[i]);
         }
 
@@ -61,7 +62,31 @@ public:
             Serial.println("ModbusHandler: failed to create ModbusTask");
         }
     }
+    //---------------------------------- Новый метод: записывает строку (имя станции) в holding-регистры---------------------------------------//
+    void writeStationName(uint16_t startIndex, const char* name) {
+        if (!name) return;
+        size_t len = strlen(name);
 
+        if (startIndex >= MODBUS_REG_COUNT) return;
+        size_t avail = MODBUS_REG_COUNT - startIndex;
+        size_t maxCount = (len < avail) ? len : avail;
+
+        if (registerMutex) {
+            if (xSemaphoreTake(registerMutex, portMAX_DELAY) == pdTRUE) {
+                for (size_t i = 0; i < maxCount; ++i) {
+                    holdingRegisters[startIndex + i] = (uint16_t)(uint8_t)name[i];
+                    mb.Hreg(startIndex + i, holdingRegisters[startIndex + i]);
+                }
+                xSemaphoreGive(registerMutex);
+            }
+        } else {
+            for (size_t i = 0; i < maxCount; ++i) {
+                holdingRegisters[startIndex + i] = (uint16_t)(uint8_t)name[i];
+                mb.Hreg(startIndex + i, holdingRegisters[startIndex + i]);
+            }
+        }
+    }
+    // -------------------------------------------------------------------------
     // Потокобезопасное чтение одного регистра
     uint16_t readHreg(uint16_t index) {
         uint16_t value = 0;

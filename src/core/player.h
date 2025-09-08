@@ -46,6 +46,10 @@ class Player: public Audio {
     bool resumeAfterUrl = false;
     volatile bool connproc = true;
     uint32_t sd_min, sd_max;
+
+    static const uint16_t MYBUF_LEN = 170;
+    static char myStationName[MYBUF_LEN];
+
     #ifdef MQTT_ROOT_TOPIC
     char      burl[MQTT_BURL_SIZE];  /* buffer for browseUrl  */
     #endif

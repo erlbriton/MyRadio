@@ -198,6 +198,7 @@ void Telnet::printHeapFragmentationInfo(uint8_t id){
   printf(id, "*************************************\n\n");
 }
 void Telnet::on_input(const char* str, uint8_t clientId) {
+  char newName[170];
   if (strlen(str) == 0) return;
   if(network.status == CONNECTED){
     if (strcmp(str, "cli.prev") == 0 || strcmp(str, "prev") == 0) {
@@ -290,7 +291,10 @@ void Telnet::on_input(const char* str, uint8_t clientId) {
       } else {
         printf(clientId, "##SYS.DATE#: %s+%02d:%02d\n", config.tmpBuf, config.store.tzHour, config.store.tzMin);
       }
-      printf(clientId, "##CLI.NAMESET#: %d %s\n", config.lastStation(), config.station.name);
+      printf(clientId, "##CLIIIIIIIII.NAMESET#: %d %s\n", config.lastStation(), config.station.name);
+      strncpy(newName, config.station.name, sizeof(newName) - 1);  // копируем максимум 169 символов
+      newName[sizeof(newName)-1] = '\0';
+      Serial.printf("++++=========+++++Station name: %s\n", config.station.name);
       if (player.status() == PLAYING) {
         printf(clientId, "##CLI.META#: %s\n", config.station.title);
       }
