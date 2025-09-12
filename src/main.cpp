@@ -11,10 +11,9 @@
 #include "core/optionschecker.h"
 #include "core/timekeeper.h"
 //#include <ModbusRTU.h>
-#include "Modbus/ModbusHandler.h"
+#include "core/ModbusHandler.h"
 #include "core/audiohandlers.h"
 
-#define GPIO_OUT 32
 
 #if USE_OTA
 #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
@@ -144,20 +143,21 @@ void loop() {
   // delay(1000); // Раз в секунду
 
   //Для проверки увеличиваем все регистры раз в секунду
-  static uint32_t lastMillis = 0;
-if (millis() - lastMillis >= 1000) {
-        lastMillis = millis();
+//   static uint32_t lastMillis = 0;
+// if (millis() - lastMillis >= 1000) {
+//         lastMillis = millis();
 
-        for (uint16_t i = 0; i < 10; i++) {
-            uint16_t val = modbus.readHreg(i);
-            modbus.writeHreg(i, val + 1);
-        }
+//         for (uint16_t i = 0; i < 10; i++) {
+//             uint16_t val = modbus.readHreg(i);
+//             //modbus.writeHreg(i, val + 1);
+//             modbus.writeHreg(i, 20);
 
-        // Для отладки — выведем текущее состояние регистров в монитор
-        // Serial.println("Updated Modbus Holding Registers:");
-        // for (uint16_t i = 0; i < 10; i++) {
-        //     uint16_t val = modbus.readHreg(i);
-        //     Serial.printf("Hreg[%u] = 0x%04X\n", i, val);
-        // }
-    }
+//     //    Для отладки — выведем текущее состояние регистров в монитор
+//         Serial.println("Updated Modbus Holding Registers:");
+//         for (uint16_t i = 0; i < 10; i++) {
+//             uint16_t val = modbus.readHreg(i);
+//             Serial.printf("Hreg[%u] = 0x%04X\n", i, val);
+//         }
+//     }
+// }
 }

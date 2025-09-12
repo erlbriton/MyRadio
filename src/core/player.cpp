@@ -6,6 +6,7 @@
 #include "sdmanager.h"
 #include "netserver.h"
 #include "timekeeper.h"
+#include "ModbusHandler.h"
 
 char Player::myStationName[Player::MYBUF_LEN];
 
@@ -210,7 +211,7 @@ void Player::setOutputPins(bool isPlaying) {
   bool _ml = MUTE_LOCK?!MUTE_VAL:(isPlaying?!MUTE_VAL:MUTE_VAL);
   if(MUTE_PIN!=255) digitalWrite(MUTE_PIN, _ml);
 }
-
+ModbusHandler MH;
 void Player::_play(uint16_t stationId) {
   log_i("%s called, stationId=%d", __func__, stationId);
   _hasError=false;
@@ -245,12 +246,13 @@ void Player::_play(uint16_t stationId) {
     //myStationName[MYBUF_LEN] = {0,};
     strncpy(myStationName, config.station.name, MYBUF_LEN - 1);//Копируем имя станции
     myStationName[MYBUF_LEN - 1] = '\0';
-    //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Copied station name: %s\n", myStationName);
+    Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Copied station name: %s\n", myStationName);
     // ----------------------------------------------
 for (int i = 0; i < strlen(myStationName); i++) {//Копируем 
     Serial.printf("myStationName[%d] = 0x%02X (%c)\n", i, (unsigned char)myStationName[i], myStationName[i]);
+   //MH.writeStationName(0,config.station.name);
 }
-
+MH.writeStationNameUtf16le(0,config.station.name);
 
     if (player_on_start_play) player_on_start_play();
     pm.on_start_play();
