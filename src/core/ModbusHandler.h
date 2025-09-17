@@ -12,11 +12,10 @@
 #define MODBUS_TX_PIN     32
 #define MODBUS_RX_PIN     34
 #define MODBUS_BAUDRATE   115200
-#define MODBUS_REG_COUNT  170
 #define MODBUS_STACK_SZ   4096
 #define MODBUS_TASK_PRIO  2
 #define MODBUS_TASK_CORE  1
-#define MODBUS_REG_COUNT 70
+#define MODBUS_REG_COUNT 50
 
 class ModbusHandler {
 public:
@@ -36,7 +35,7 @@ public:
         Serial2.begin(MODBUS_BAUDRATE, SERIAL_8N1, MODBUS_RX_PIN, MODBUS_TX_PIN);
         delay(20); // короткая пауза, чтобы Serial2 успел инициализироваться
         // Инициализация библиотеки Modbus (передаём Serial2, -1 = нет DE/RE пина)
-        mb.begin(&Serial2, -1, false);
+        mb.begin(&Serial2, 15, true);
         mb.slave(slaveId);
         // Регистрируем holding registers в библиотеке — привязка к нашим переменным
         // Если библиотека хранит ссылку — это хорошо; на всякий случай будем держать
@@ -59,37 +58,97 @@ public:
         }
     }
 // Записывает имя станции в UTF-16LE в холдинг-регистры, один регистр на символ
+
 void writeStationNameUtf16le(uint16_t startIndex, const char* name) {
     if (!name || startIndex >= MODBUS_REG_COUNT) return;
 
+    // Сначала считаем длину имени в символах
+    size_t nameLen = 0;
+    for (size_t i = 0; name[i] != '\0'; ) {
+        uint8_t byte1 = static_cast<uint8_t>(name[i]);
+        if ((byte1 & 0x80) == 0) {
+            i += 1;
+        } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
+            i += 2;
+        } else {
+            i += 1;
+        }
+        nameLen++;
+    }
+
+    // Определяем позицию сдвига: центрируем имя в массиве 50 регистров
+    size_t leftPadding = (MODBUS_REG_COUNT > nameLen) ? (MODBUS_REG_COUNT - nameLen) / 2 : 0;
+
     uint16_t regIndex = startIndex;
 
+    // Сначала ставим пробелы
+    for (size_t i = 0; i < leftPadding && regIndex < MODBUS_REG_COUNT; i++) {
+        mb.Hreg(regIndex++, 0x0020); // пробел
+    }
+
+    // Затем записываем символы из name
     for (size_t i = 0; name[i] != '\0' && regIndex < MODBUS_REG_COUNT; ) {
         uint16_t val = 0;
         uint8_t byte1 = static_cast<uint8_t>(name[i]);
 
         if ((byte1 & 0x80) == 0) {
-            // ASCII (латиница, цифры)
             val = byte1;
             i += 1;
         } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
-            // Двухбайтовый UTF-8 (кириллица)
             uint8_t byte2 = static_cast<uint8_t>(name[i + 1]);
             val = ((byte1 & 0x1F) << 6) | (byte2 & 0x3F);
             i += 2;
         } else {
-            // Невалидный или не поддерживаемый UTF-8 символ — пропускаем
             i += 1;
             continue;
         }
-        // Записываем в регистр Modbus
+
         mb.Hreg(regIndex++, val);
     }
-    // После строки ставим один ноль, если есть место
-    if (regIndex < MODBUS_REG_COUNT) {
-        mb.Hreg(regIndex, 0x0000);
+
+    // Остальные позиции справа — пробелы
+    while (regIndex < startIndex + MODBUS_REG_COUNT) {
+        mb.Hreg(regIndex++, 0x0020);
     }
 }
+
+
+// void writeStationNameUtf16le(uint16_t startIndex, const char* name) {
+//     if (!name || startIndex >= MODBUS_REG_COUNT) return;
+
+//     uint16_t regIndex = startIndex;
+
+//     for (size_t i = 0; name[i] != '\0' && regIndex < MODBUS_REG_COUNT; ) {
+//         uint16_t val = 0;
+//         uint8_t byte1 = static_cast<uint8_t>(name[i]);
+
+//         if ((byte1 & 0x80) == 0) {
+//             // ASCII (латиница, цифры)
+//             val = byte1;
+//             i += 1;
+//         } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
+//             // Двухбайтовый UTF-8 (кириллица)
+//             uint8_t byte2 = static_cast<uint8_t>(name[i + 1]);
+//             val = ((byte1 & 0x1F) << 6) | (byte2 & 0x3F);
+//             i += 2;
+//         } else {
+//             // Невалидный или не поддерживаемый UTF-8 символ — пропускаем
+//             i += 1;
+//             continue;
+//         }
+//         // Записываем в регистр Modbus
+//         mb.Hreg(regIndex++, val);
+//     }
+//     // После строки ставим один ноль, если есть место
+//     if (regIndex < MODBUS_REG_COUNT) {
+//         mb.Hreg(regIndex, 0x0000);
+//     }
+// }
+// void clearStationName(uint16_t startIndex, uint16_t length) {
+//     for (uint16_t i = 0; i < length && (startIndex + i) < MODBUS_REG_COUNT; i++) {
+//         mb.Hreg(startIndex + i, 0x0000);
+//     }
+// }
 private:
     // Входная точка задачи (статическая -> вызывает метод на this)
     static void modbusTaskEntry(void* pv) {
