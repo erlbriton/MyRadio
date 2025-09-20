@@ -47,7 +47,7 @@ class Player: public Audio {
     volatile bool connproc = true;
     uint32_t sd_min, sd_max;
 
-    static const uint16_t MYBUF_LEN = 170;
+    static const uint16_t MYBUF_LEN = 50;
     static char myStationName[MYBUF_LEN];
 
     #ifdef MQTT_ROOT_TOPIC

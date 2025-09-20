@@ -8,7 +8,7 @@
 #include "timekeeper.h"
 #include "ModbusHandler.h"
 
-char Player::myStationName[Player::MYBUF_LEN];
+char Player::myStationName[Player::MYBUF_LEN];//50
 
 Player player;
 QueueHandle_t playerQueue;
@@ -239,24 +239,17 @@ void Player::_play(uint16_t stationId) {
     setOutputPins(true);
 
     // --- КОД ДЛЯ КОПИРОВАНИЯ ИМЕНИ СТАНЦИИ ---
-    //#define MYBUF_LEN 170
-    //static char myStationName[MYBUF_LEN];
-
-    //MYBUF_LEN = 170;
-    //myStationName[MYBUF_LEN] = {0,};
     strncpy(myStationName, config.station.name, MYBUF_LEN - 1);//Копируем имя станции
     myStationName[MYBUF_LEN - 1] = '\0';
-    Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Copied station name: %s\n", myStationName);
-    // ----------------------------------------------
 for (int i = 0; i < strlen(myStationName); i++) {//Копируем 
     Serial.printf("myStationName[%d] = 0x%02X (%c)\n", i, (unsigned char)myStationName[i], myStationName[i]);
-   //MH.writeStationName(0,config.station.name);
 }
-MH.writeStationNameUtf16le(0,config.station.name);
+MH.writeStationNameUtf16le(0,config.station.name, true);
 
     if (player_on_start_play) player_on_start_play();
     pm.on_start_play();
-  }else{
+  }else
+  {
     telnet.printf("##ERROR#:\tError connecting to %.128s\n", config.station.url);
     snprintf(config.tmpBuf, sizeof(config.tmpBuf), "Error connecting to %.128s", config.station.url); setError();
     _stop(true);

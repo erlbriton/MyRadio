@@ -15,7 +15,8 @@
 #define MODBUS_STACK_SZ   4096
 #define MODBUS_TASK_PRIO  2
 #define MODBUS_TASK_CORE  1
-#define MODBUS_REG_COUNT 50
+#define MODBUS_REG_COUNT 150
+#define MODBUS_REG_NAME  50
 
 class ModbusHandler {
 public:
@@ -57,98 +58,141 @@ public:
             Serial.println("ModbusHandler: failed to create ModbusTask");
         }
     }
-// Записывает имя станции в UTF-16LE в холдинг-регистры, один регистр на символ
 
-void writeStationNameUtf16le(uint16_t startIndex, const char* name) {
-    if (!name || startIndex >= MODBUS_REG_COUNT) return;
 
-    // Сначала считаем длину имени в символах
-    size_t nameLen = 0;
-    for (size_t i = 0; name[i] != '\0'; ) {
+// Запись строки UTF-8 в Modbus-регистры, начиная с любого стартового регистра.
+// Каждая строка занимает ровно 50 регистров.
+// Если center == true → строка центрируется, иначе пишется слева.
+
+void writeStationNameUtf16le(uint16_t startIndex, const char* name, bool centered) {
+    constexpr size_t REG_COUNT = 50;  // всегда 50 регистров
+    if (!name) return;
+
+    // Буфер для раскодированных символов UTF-16
+    uint16_t decoded[REG_COUNT];
+    size_t decodedLen = 0;
+
+    // --- UTF-8 → UTF-16 ---
+    for (size_t i = 0; name[i] != '\0' && decodedLen < REG_COUNT; ) {
         uint8_t byte1 = static_cast<uint8_t>(name[i]);
-        if ((byte1 & 0x80) == 0) {
-            i += 1;
-        } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
-            i += 2;
-        } else {
-            i += 1;
-        }
-        nameLen++;
-    }
-
-    // Определяем позицию сдвига: центрируем имя в массиве 50 регистров
-    size_t leftPadding = (MODBUS_REG_COUNT > nameLen) ? (MODBUS_REG_COUNT - nameLen) / 2 : 0;
-
-    uint16_t regIndex = startIndex;
-
-    // Сначала ставим пробелы
-    for (size_t i = 0; i < leftPadding && regIndex < MODBUS_REG_COUNT; i++) {
-        mb.Hreg(regIndex++, 0x0020); // пробел
-    }
-
-    // Затем записываем символы из name
-    for (size_t i = 0; name[i] != '\0' && regIndex < MODBUS_REG_COUNT; ) {
         uint16_t val = 0;
-        uint8_t byte1 = static_cast<uint8_t>(name[i]);
 
         if ((byte1 & 0x80) == 0) {
+            // 1-байтовый символ ASCII
             val = byte1;
             i += 1;
         } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
+            // 2-байтовый UTF-8
             uint8_t byte2 = static_cast<uint8_t>(name[i + 1]);
             val = ((byte1 & 0x1F) << 6) | (byte2 & 0x3F);
             i += 2;
+        } else if ((byte1 & 0xF0) == 0xE0 && name[i + 2] != '\0') {
+            // 3-байтовый UTF-8
+            uint8_t byte2 = static_cast<uint8_t>(name[i + 1]);
+            uint8_t byte3 = static_cast<uint8_t>(name[i + 2]);
+            val = ((byte1 & 0x0F) << 12) |
+                  ((byte2 & 0x3F) << 6) |
+                  (byte3 & 0x3F);
+            i += 3;
         } else {
+            // Неподдержанный символ, пропускаем
             i += 1;
             continue;
         }
 
-        mb.Hreg(regIndex++, val);
+        decoded[decodedLen++] = val;
     }
 
-    // Остальные позиции справа — пробелы
-    while (regIndex < startIndex + MODBUS_REG_COUNT) {
-        mb.Hreg(regIndex++, 0x0020);
+    // --- Центрирование или вывод слева ---
+    size_t leftPadding = 0;
+    if (centered && decodedLen < REG_COUNT) {
+        leftPadding = (REG_COUNT - decodedLen) / 2;
+    }
+
+    size_t regIndex = startIndex;
+    size_t outPos = 0;
+
+    // Пробелы слева (если надо центрировать)
+    for (size_t i = 0; i < leftPadding && outPos < REG_COUNT; i++) {
+        mb.Hreg(regIndex + outPos, 0x0020);
+        outPos++;
+    }
+
+    // Запись символов
+    for (size_t i = 0; i < decodedLen && outPos < REG_COUNT; i++) {
+        mb.Hreg(regIndex + outPos, decoded[i]);
+        outPos++;
+    }
+
+    // Пробелы справа
+    while (outPos < REG_COUNT) {
+        mb.Hreg(regIndex + outPos, 0x0020);
+        outPos++;
     }
 }
 
 
-// void writeStationNameUtf16le(uint16_t startIndex, const char* name) {
-//     if (!name || startIndex >= MODBUS_REG_COUNT) return;
+// void writeStationNameUtf16le(uint16_t startIndex, const char* text, bool center) {
+//     const size_t BLOCK_SIZE = 50;  // фиксированное количество регистров
+//     if (!text) return;
 
+//     // 1. Считаем количество символов в строке (UTF-8 → Unicode)
+//     size_t charCount = 0;
+//     for (size_t i = 0; text[i] != '\0'; ) {
+//         uint8_t byte1 = static_cast<uint8_t>(text[i]);
+//         if ((byte1 & 0x80) == 0) {              // 1-байтовый символ (ASCII)
+//             i += 1;
+//         } else if ((byte1 & 0xE0) == 0xC0 &&
+//                    text[i + 1] != '\0') {       // 2-байтовый символ
+//             i += 2;
+//         } else {                                // fallback
+//             i += 1;
+//         }
+//         charCount++;
+//     }
+
+//     // 2. Определяем левый отступ
+//     size_t leftPadding = 0;
+//     if (center && BLOCK_SIZE > charCount) {
+//         leftPadding = (BLOCK_SIZE - charCount) / 2;
+//     }
+
+//     // 3. Записываем пробелы слева (если нужны)
 //     uint16_t regIndex = startIndex;
+//     for (size_t i = 0; i < leftPadding && i < BLOCK_SIZE; i++) {
+//         mb.Hreg(regIndex++, 0x0020);  // пробел
+//     }
 
-//     for (size_t i = 0; name[i] != '\0' && regIndex < MODBUS_REG_COUNT; ) {
+//     // 4. Записываем строку посимвольно
+//     for (size_t i = 0; text[i] != '\0' && regIndex < startIndex + BLOCK_SIZE; ) {
 //         uint16_t val = 0;
-//         uint8_t byte1 = static_cast<uint8_t>(name[i]);
-
-//         if ((byte1 & 0x80) == 0) {
-//             // ASCII (латиница, цифры)
+//         uint8_t byte1 = static_cast<uint8_t>(text[i]);
+//         if ((byte1 & 0x80) == 0) {  // ASCII
 //             val = byte1;
 //             i += 1;
-//         } else if ((byte1 & 0xE0) == 0xC0 && name[i + 1] != '\0') {
-//             // Двухбайтовый UTF-8 (кириллица)
-//             uint8_t byte2 = static_cast<uint8_t>(name[i + 1]);
+//         } else if ((byte1 & 0xE0) == 0xC0 &&
+//                    text[i + 1] != '\0') {  // UTF-8 (2 байта)
+//             uint8_t byte2 = static_cast<uint8_t>(text[i + 1]);
 //             val = ((byte1 & 0x1F) << 6) | (byte2 & 0x3F);
 //             i += 2;
-//         } else {
-//             // Невалидный или не поддерживаемый UTF-8 символ — пропускаем
+//         } else {  // fallback — пропускаем байт
 //             i += 1;
 //             continue;
 //         }
-//         // Записываем в регистр Modbus
 //         mb.Hreg(regIndex++, val);
 //     }
-//     // После строки ставим один ноль, если есть место
-//     if (regIndex < MODBUS_REG_COUNT) {
-//         mb.Hreg(regIndex, 0x0000);
+
+//     // 5. Дополняем пробелами до конца блока
+//     while (regIndex < startIndex + BLOCK_SIZE) {
+//         mb.Hreg(regIndex++, 0x0020);
 //     }
 // }
-// void clearStationName(uint16_t startIndex, uint16_t length) {
-//     for (uint16_t i = 0; i < length && (startIndex + i) < MODBUS_REG_COUNT; i++) {
-//         mb.Hreg(startIndex + i, 0x0000);
-//     }
+
+// uint16_t HregRead(uint16_t idx) {
+//     if (idx >= MODBUS_REG_COUNT) return 0;
+//     return hregs[idx]; // hregs — внутренний массив холдинг регистров
 // }
+
 private:
     // Входная точка задачи (статическая -> вызывает метод на this)
     static void modbusTaskEntry(void* pv) {

@@ -2014,7 +2014,9 @@ int Audio::read_M4A_Header(uint8_t *data, size_t len) {
                 value[tmp] = 0;
                 chbuf[0] = 0;
                 if(i == 0)  sprintf(chbuf, "Title: %s", value);
-                if(i == 1)  sprintf(chbuf, "Artist: %s", value);
+                if(i == 1)  {
+                sprintf(chbuf, "Artist: %s", value);
+                }
                 if(i == 2)  sprintf(chbuf, "Album: %s", value);
                 if(i == 3)  sprintf(chbuf, "Encoder: %s", value);
                 if(i == 4)  sprintf(chbuf, "Comment: %s", value);
@@ -2026,7 +2028,7 @@ int Audio::read_M4A_Header(uint8_t *data, size_t len) {
                 if(i == 10) sprintf(chbuf, "Album Artist: %s", value);
                 if(i == 11) sprintf(chbuf, "Types of: %s", value);
                 if(chbuf[0] != 0) {
-                    if(audio_id3data) audio_id3data(chbuf);
+                        if(audio_id3data) audio_id3data(chbuf);
                 }
             }
         }
