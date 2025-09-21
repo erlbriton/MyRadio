@@ -244,7 +244,7 @@ void Player::_play(uint16_t stationId) {
 for (int i = 0; i < strlen(myStationName); i++) {//Копируем 
     Serial.printf("myStationName[%d] = 0x%02X (%c)\n", i, (unsigned char)myStationName[i], myStationName[i]);
 }
-MH.writeStationNameUtf16le(0,config.station.name, true);
+//MH.writeStationNameUtf16le(0,config.station.name, true);
 
     if (player_on_start_play) player_on_start_play();
     pm.on_start_play();

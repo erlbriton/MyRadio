@@ -15,7 +15,7 @@
 #define MODBUS_STACK_SZ   4096
 #define MODBUS_TASK_PRIO  2
 #define MODBUS_TASK_CORE  1
-#define MODBUS_REG_COUNT 150
+#define MODBUS_REG_COUNT 600
 #define MODBUS_REG_NAME  50
 
 class ModbusHandler {
@@ -65,6 +65,7 @@ public:
 // Если center == true → строка центрируется, иначе пишется слева.
 
 void writeStationNameUtf16le(uint16_t startIndex, const char* name, bool centered) {
+    Serial.printf("()()()()()()()()())()()()()()() writeStationNameUtf16le(startReg=%u): name = \"%s\"\n", startIndex, name);
     constexpr size_t REG_COUNT = 50;  // всегда 50 регистров
     if (!name) return;
 

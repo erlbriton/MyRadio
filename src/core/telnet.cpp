@@ -6,8 +6,12 @@
 #include "network.h"
 #include "telnet.h"
 #include "esp_heap_caps.h"
+#include "ModbusHandler.h"
 
 Telnet telnet;
+
+//ModbusRTU mb;
+
 
 bool Telnet::_isIPSet(IPAddress ip) {
   return strcmp(config.ipToStr(ip), "0.0.0.0") == 0;
@@ -20,26 +24,228 @@ bool Telnet::begin(bool quiet) {
     Serial.println("##[BOOT]#");
     return true;
   }
+
   if(!quiet) Serial.print("##[BOOT]#\ttelnet.begin\t");
+
   if (WiFi.status() == WL_CONNECTED || _isIPSet(WiFi.softAPIP())) {
     toggle();
     if(!quiet){
       Serial.println("done");
       Serial.println("##[BOOT]#");
-      BOOTLOG("Ready! Go to http:/%s/ to configure", config.ipToStr(WiFi.localIP()));
+      BOOTLOG("Ready! Go to http:/%s/ to configure", config.ipToStr(WiFi.localIP()));                                      
       BOOTLOG("------------------------------------------------");
       Serial.println("##[BOOT]#");
     }
+
+    // ---- ВАЖНО: здесь получаем IP и один раз пишем его в Modbus ----
+    String ipString = WiFi.localIP().toString();   // например "192.168.1.25"
+    ModbusHandler MH;
+    MH.writeStationNameUtf16le(150, ipString.c_str(), false);
+
+    Serial.print("IP записан в Modbus: ");
+    Serial.println(ipString);
+    // ---------------------------------------------------------------
+
     return true;
   } else {
     return false;
   }
 }
 
+// bool Telnet::begin(bool quiet) {
+//   ModbusHandler MH;
+
+//   // === Проверка: если радио в SD-режиме, то телнет не запускается ===
+//   if (network.status == SDREADY) {
+//     BOOTLOG("Ready in SD Mode!");
+//     BOOTLOG("------------------------------------------------");
+//     Serial.println("##[BOOT]#");
+//     return true;
+//   }
+
+//   // === Сообщение в лог при старте ===
+//   if (!quiet) Serial.print("##[BOOT]#\ttelnet.begin\t");
+
+//   // === Проверяем, есть ли соединение по WiFi или задан IP для AP ===
+//   if (WiFi.status() == WL_CONNECTED || _isIPSet(WiFi.softAPIP())) {
+//     toggle();  // включаем или выключаем сервер в зависимости от config
+
+//     if (!quiet) {
+//       Serial.println("done");
+//       Serial.println("##[BOOT]#");
+
+//       // ★★★ Получаем IP и формируем строку ★★★
+//       IPAddress ip = WiFi.localIP();
+//       String ipString = ip.toString();
+
+//       char ipArray[16];
+//       for (int i = 0; i < ipString.length() && i < 15; i++) {
+//         ipArray[i] = ipString[i];
+//       }
+//       ipArray[ipString.length()] = '\0';  // завершающий символ
+
+//       // === Отладочный вывод в терминал ===
+//       Serial.println("========================================");
+//       Serial.println("СОДЕРЖИМОЕ МАССИВА IP-АДРЕСА:");
+//       Serial.println("========================================");
+//       for (int i = 0; i < ipString.length(); i++) {
+//         Serial.printf("ipArray[%d] = '%c' (ASCII: %d)\n", i, ipArray[i], (int)ipArray[i]);
+//       }
+//       Serial.printf("Завершающий символ: ipArray[%d] = '\\0' (ASCII: 0)\n", ipString.length());
+//       Serial.println("========================================");
+
+//       // === Сообщение в системный лог ===
+//       BOOTLOG("Ready! Go to http:/%s/ to configure", config.ipToStr(WiFi.localIP()));
+//       BOOTLOG("------------------------------------------------");
+//       Serial.println("##[BOOT]#");
+
+//       // ★★★ Запись IP-адреса в Modbus регистры ★★★
+//       MH.writeStationNameUtf16le(150, ipArray, false);
+//       for (int i = 0; i < ipString.length(); i++) {
+//         Serial.printf("_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+ipArray[%d] = '%c' (ASCII: %d)\n", i, ipArray[i], (int)ipArray[i]);
+//       }
+//     }
+
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+
+// bool Telnet::begin(bool quiet) {
+//   ModbusHandler MH;
+//   if(network.status==SDREADY) {
+//     BOOTLOG("Ready in SD Mode!");
+//     BOOTLOG("------------------------------------------------");
+//     Serial.println("##[BOOT]#");
+//     return true;
+//   }
+//   if(!quiet) Serial.print("##[BOOT]#\ttelnet.begin\t");
+//   if (WiFi.status() == WL_CONNECTED || _isIPSet(WiFi.softAPIP())) {
+//     toggle();
+//     if(!quiet){
+//       Serial.println("done");
+//       Serial.println("##[BOOT]#");
+// // ★★★★ ДОБАВЛЕННЫЙ КОД - ЗАПИСЬ IP В МАССИВ ★★★★
+//         // Получаем текущий IP-адрес
+//         IPAddress ip = WiFi.localIP();
+//         String ipString = ip.toString();
+        
+//         // Создаем массив для хранения символов IP-адреса
+//         // Максимальная длина IPv4 адреса - 15 символов (xxx.xxx.xxx.xxx)
+//         char ipArray[16]; 
+        
+//         // Записываем каждый символ IP-адреса в массив
+//         for (int i = 0; i < ipString.length() && i < 15; i++) {
+//             ipArray[i] = ipString[i];
+//         }
+//         // Добавляем нулевой терминатор в конец массива
+//         ipArray[ipString.length()] = '\0';
+        
+//         // ★★★★ ВЫВОД ВСЕХ ЧЛЕНОВ МАССИВА В МОНИТОР ★★★★
+//         Serial.println("========================================");
+//         Serial.println("СОДЕРЖИМОЕ МАССИВА IP-АДРЕСА:");
+//         Serial.println("========================================");
+        
+//         for (int i = 0; i < ipString.length(); i++) {
+//             Serial.print("ipArray[");
+//             Serial.print(i);
+//             Serial.print("] = '");
+//             Serial.print(ipArray[i]);
+//             Serial.print("' (ASCII: ");
+//             Serial.print((int)ipArray[i]);
+//             Serial.println(")");
+//         }
+        
+//         Serial.print("Завершающий символ: ipArray[");
+//         Serial.print(ipString.length());
+//         Serial.print("] = '\\0' (ASCII: 0)");
+//         Serial.println("\n========================================");
+//         // ★★★★ КОНЕЦ ДОБАВЛЕННОГО КОДА ★★★★
+//       BOOTLOG("Ready! Go to http:/%s/ to configure", config.ipToStr(WiFi.localIP()));
+//       BOOTLOG("------------------------------------------------");
+//       Serial.println("##[BOOT]#");
+//       //MH.writeStationNameUtf16le(150, ipArray, false);
+//       //MH.writeStationNameUtf16le(150, ipString.c_str(), false);
+// MH.writeStationNameUtf16le(150, WiFi.localIP().toString().c_str(), false);
+      
+   // }
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+// bool Telnet::begin(bool quiet) {
+//   ModbusHandler MH;
+//   if(network.status==SDREADY) {
+//     BOOTLOG("Ready in SD Mode!");
+//     BOOTLOG("------------------------------------------------");
+//     Serial.println("##[BOOT]#");
+//     return true;
+//   }
+  
+//   if(!quiet) Serial.print("##[BOOT]#\ttelnet.begin\t");
+  
+//   if (WiFi.status() == WL_CONNECTED || _isIPSet(WiFi.softAPIP())) {
+//     toggle();
+//     if(!quiet){
+//         Serial.println("done");
+//         Serial.println("##[BOOT]#");
+        
+//         // ★★★★ ДОБАВЛЕННЫЙ КОД - ЗАПИСЬ IP В МАССИВ ★★★★
+//         // Получаем текущий IP-адрес
+//         IPAddress ip = WiFi.localIP();
+//         String ipString = ip.toString();
+        
+//         // Создаем массив для хранения символов IP-адреса
+//         // Максимальная длина IPv4 адреса - 15 символов (xxx.xxx.xxx.xxx)
+//         char ipArray[16]; 
+        
+//         // Записываем каждый символ IP-адреса в массив
+//         for (int i = 0; i < ipString.length() && i < 15; i++) {
+//             ipArray[i] = ipString[i];
+//         }
+//         // Добавляем нулевой терминатор в конец массива
+//         ipArray[ipString.length()] = '\0';
+        
+//         // ★★★★ ВЫВОД ВСЕХ ЧЛЕНОВ МАССИВА В МОНИТОР ★★★★
+//         Serial.println("========================================");
+//         Serial.println("СОДЕРЖИМОЕ МАССИВА IP-АДРЕСА:");
+//         Serial.println("========================================");
+        
+//         for (int i = 0; i < ipString.length(); i++) {
+//             Serial.print("ipArray[");
+//             Serial.print(i);
+//             Serial.print("] = '");
+//             Serial.print(ipArray[i]);
+//             Serial.print("' (ASCII: ");
+//             Serial.print((int)ipArray[i]);
+//             Serial.println(")");
+//         }
+        
+//         Serial.print("Завершающий символ: ipArray[");
+//         Serial.print(ipString.length());
+//         Serial.print("] = '\\0' (ASCII: 0)");
+//         Serial.println("\n========================================");
+//         // ★★★★ КОНЕЦ ДОБАВЛЕННОГО КОДА ★★★★
+        
+//         BOOTLOG("Ready! Go to http:/%s/ to configure", config.ipToStr(WiFi.localIP()));
+//         Serial.println("##[BOOT]#");
+//     }
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
 void Telnet::start() {
   server.begin();
   server.setNoDelay(true);
 }
+
+
 
 void Telnet::stop() {
   server.stop();

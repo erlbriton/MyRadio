@@ -269,8 +269,13 @@ void NetServer::processQueue(){
                                   break;
       case DSPON:         sprintf (wsBuf, "{\"dspontrue\":%d}", 1); break;
       case STATION:       requestOnChange(STATIONNAME, clientId); requestOnChange(ITEM, clientId); break;
-      case STATIONNAME:   sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); break;
+      case STATIONNAME: {  sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); 
+        ModbusHandler MH;
+                          MH.writeStationNameUtf16le(0, config.station.name, true);
+      }
+      break;
       case ITEM:          sprintf (wsBuf, "{\"current\": %d}", config.lastStation()); break;
+      //------------------Мой код для записи в регистры имени исполнителя и композиции-------------------------
       case TITLE: {
 ModbusHandler MH;
     // Оригинальный вывод
@@ -290,11 +295,11 @@ ModbusHandler MH;
     }
 
     // --- Вывод в терминал ---
-    Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Artist: %s\n", artist.c_str());
-    Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Title : %s\n", title.c_str());
-    telnet.printf(">>>>>>>>>>>>>>>>>>##DEBUG# Artist: %s\n", artist.c_str());
-    telnet.printf(">>>>>>>>>>>>>>>>>>>>##DEBUG# Title : %s\n", title.c_str());
-    MH.writeStationNameUtf16le(50, artist.c_str(), false);
+    // Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Artist: %s\n", artist.c_str());
+    // Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Title : %s\n", title.c_str());
+    // telnet.printf(">>>>>>>>>>>>>>>>>>##DEBUG# Artist: %s\n", artist.c_str());
+    // telnet.printf(">>>>>>>>>>>>>>>>>>>>##DEBUG# Title : %s\n", title.c_str());
+    MH.writeStationNameUtf16le(50, artist.c_str(), false);                         
 Serial.println(">>>>>>>>>>>>>>>>>[MODBUS DEBUG] Artist registers:");
 //for (uint16_t i = 50; i < 50 + 50; i++) {  // 50 регистров для Artist
     //uint16_t val = artist.c_str()(i);            // читаем значение регистра
@@ -312,8 +317,8 @@ Serial.println(">>>>>>>>>>>>>>>>>[MODBUS DEBUG] Artist registers:");
     MH.writeStationNameUtf16le(100, title.c_str(), false);
     break;
 }
-
       //case TITLE:         sprintf (wsBuf, "{\"payload\":[{\"id\":\"meta\", \"value\": \"%s\"}]}", config.station.title); telnet.printf("##CLI.META#: %s\n> ", config.station.title); break;
+     //---------------------Конец кода для записи в регистры имени исполнителя и композиции-------------------------
       case VOLUME:        sprintf (wsBuf, "{\"payload\":[{\"id\":\"volume\", \"value\": %d}]}", config.store.volume); telnet.printf("##CLI.VOL#: %d\n", config.store.volume); break;
       case NRSSI:         sprintf (wsBuf, "{\"payload\":[{\"id\":\"rssi\", \"value\": %d}, {\"id\":\"heap\", \"value\": %d}]}", rssi, (player.isRunning() && config.store.audioinfo)?(int)(100*player.inBufferFilled()/playerBufMax):0); /*rssi = 255;*/ break;
       case SDPOS:         sprintf (wsBuf, "{\"sdpos\": %lu,\"sdend\": %lu,\"sdtpos\": %lu,\"sdtend\": %lu}", 
