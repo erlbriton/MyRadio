@@ -239,11 +239,11 @@ void Player::_play(uint16_t stationId) {
     setOutputPins(true);
 
     // --- КОД ДЛЯ КОПИРОВАНИЯ ИМЕНИ СТАНЦИИ ---
-    strncpy(myStationName, config.station.name, MYBUF_LEN - 1);//Копируем имя станции
-    myStationName[MYBUF_LEN - 1] = '\0';
-for (int i = 0; i < strlen(myStationName); i++) {//Копируем 
-    Serial.printf("myStationName[%d] = 0x%02X (%c)\n", i, (unsigned char)myStationName[i], myStationName[i]);
-}
+//     strncpy(myStationName, config.station.name, MYBUF_LEN - 1);//Копируем имя станции
+//     myStationName[MYBUF_LEN - 1] = '\0';
+// for (int i = 0; i < strlen(myStationName); i++) {//Копируем 
+//     Serial.printf("myStationName[%d] = 0x%02X (%c)\n", i, (unsigned char)myStationName[i], myStationName[i]);
+//}
 //MH.writeStationNameUtf16le(0,config.station.name, true);
 
     if (player_on_start_play) player_on_start_play();
