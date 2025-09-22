@@ -142,6 +142,7 @@ const char *getFormat(BitrateFormat _format) {
 }
 
 void NetServer::processQueue(){
+   ModbusHandler MH; 
   if(nsQueue==NULL) return;
   nsRequestParams_t request;
   if(xQueueReceive(nsQueue, &request, NS_QUEUE_TICKS)){
@@ -270,14 +271,14 @@ void NetServer::processQueue(){
       case DSPON:         sprintf (wsBuf, "{\"dspontrue\":%d}", 1); break;
       case STATION:       requestOnChange(STATIONNAME, clientId); requestOnChange(ITEM, clientId); break;
       case STATIONNAME: {  sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); 
-        ModbusHandler MH;
+       // ModbusHandler MH;
                           MH.writeStationNameUtf16le(0, config.station.name, true);
       }
       break;
       case ITEM:          sprintf (wsBuf, "{\"current\": %d}", config.lastStation()); break;
       //------------------Мой код для записи в регистры имени исполнителя и композиции-------------------------
       case TITLE: {
-ModbusHandler MH;
+//ModbusHandler MH;
     // Оригинальный вывод
     sprintf(wsBuf, "{\"payload\":[{\"id\":\"meta\", \"value\": \"%s\"}]}", config.station.title); 
     telnet.printf("##CLI.META#: %s\n> ", config.station.title); 
@@ -329,7 +330,13 @@ Serial.println(">>>>>>>>>>>>>>>>>[MODBUS DEBUG] Artist registers:");
                                   break;
       case SDLEN:         sprintf (wsBuf, "{\"sdmin\": %lu,\"sdmax\": %lu}", player.sd_min, player.sd_max); break;
       case SDSNUFFLE:     sprintf (wsBuf, "{\"snuffle\": %d}", config.store.sdsnuffle); break;
-      case BITRATE:       sprintf (wsBuf, "{\"payload\":[{\"id\":\"bitrate\", \"value\": %d}, {\"id\":\"fmt\", \"value\": \"%s\"}]}", config.station.bitrate, getFormat(config.configFmt)); break;
+      case BITRATE:       { 
+        sprintf (wsBuf, "{\"payload\":[{\"id\":\"bitrate\", \"value\": %d}, {\"id\":\"fmt\", \"value\": \"%s\"}]}", config.station.bitrate, getFormat(config.configFmt));
+      char bitrateStr[16];  // буфер под число в текстовом виде
+      sprintf(bitrateStr, "%d", config.station.bitrate);
+      MH.writeStationNameUtf16le(170, bitrateStr, false);
+      MH.writeStationNameUtf16le(175, getFormat(config.configFmt), false);
+      break;}
       case MODE:          sprintf (wsBuf, "{\"payload\":[{\"id\":\"playerwrap\", \"value\": \"%s\"}]}", player.status() == PLAYING ? "playing" : "stopped"); telnet.info(); break;
       case EQUALIZER:     sprintf (wsBuf, "{\"payload\":[{\"id\":\"bass\", \"value\": %d}, {\"id\": \"middle\", \"value\": %d}, {\"id\": \"trebble\", \"value\": %d}]}", config.store.bass, config.store.middle, config.store.trebble); break;
       case BALANCE:       sprintf (wsBuf, "{\"payload\":[{\"id\": \"balance\", \"value\": %d}]}", config.store.balance); break;
