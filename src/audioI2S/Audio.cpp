@@ -15,6 +15,8 @@
 #include "aac_decoder/aac_decoder.h"
 #include "flac_decoder/flac_decoder.h"
 #include "../core/config.h"
+#include "core/ModbusHandler.h"
+
 
 #ifdef SDFATFS_USED
 fs::SDFATFS SD_SDFAT;
@@ -386,6 +388,7 @@ void Audio::connectTask(void* pvParams) {
 
 //---------------------------------------------------------------------------------------------------------------------
 bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
+    uint8_t i = 0;
     // user and pwd for authentification only, can be empty
 
     if(host == NULL) {
@@ -444,8 +447,25 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
         port = atoi(h_host + pos_colon + 1);// Get portnumber as integer
         hostwoext[pos_colon] = '\0';// Host without portnumber
     }
-
+    ModbusHandler MH;
+    //uint8_t i = 0;
     AUDIO_INFO("Connect to new host: \"%s\"", l_host);
+    //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. l_host = %s\n", l_host);
+   // std::string safeHost(l_host);   // в стиле C++
+   // MH.writeStationNameUtf16le(190, safeHost.c_str(), false);
+   if (i == 0){
+    MH.writeStationNameUtf16le(190, l_host, false);
+    i = 1;
+   }
+
+// делаем копию строки в свой буфер
+// static char hostCopy[128]; // размер под твои URL
+// strncpy(hostCopy, l_host, sizeof(hostCopy) - 1);
+// hostCopy[sizeof(hostCopy) - 1] = '\0'; // защита от переполнения
+
+// // теперь передаём копию, которая не изменится
+// MH.writeStationNameUtf16le(190, hostCopy, false);
+
     setDefaults(); // no need to stop clients if connection is established (default is true)
 
     if(startsWith(l_host, "https")) m_f_ssl = true;

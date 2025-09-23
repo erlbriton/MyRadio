@@ -269,16 +269,16 @@ void NetServer::processQueue(){
                                   config.store.skipPlaylistUpDown); 
                                   break;
       case DSPON:         sprintf (wsBuf, "{\"dspontrue\":%d}", 1); break;
-      case STATION:       requestOnChange(STATIONNAME, clientId); requestOnChange(ITEM, clientId); break;
+      case STATION:       requestOnChange(STATIONNAME, clientId); requestOnChange(ITEM, clientId); 
+      Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>..STATION case called, clientId = %u\n", clientId);
+      break;
       case STATIONNAME: {  sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); 
-       // ModbusHandler MH;
-                          MH.writeStationNameUtf16le(0, config.station.name, true);
+      MH.writeStationNameUtf16le(0, config.station.name, true);
       }
       break;
       case ITEM:          sprintf (wsBuf, "{\"current\": %d}", config.lastStation()); break;
       //------------------Мой код для записи в регистры имени исполнителя и композиции-------------------------
       case TITLE: {
-//ModbusHandler MH;
     // Оригинальный вывод
     sprintf(wsBuf, "{\"payload\":[{\"id\":\"meta\", \"value\": \"%s\"}]}", config.station.title); 
     telnet.printf("##CLI.META#: %s\n> ", config.station.title); 
@@ -294,36 +294,18 @@ void NetServer::processQueue(){
         artist = metaStr;
         title  = "";
     }
-
-    // --- Вывод в терминал ---
-    // Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Artist: %s\n", artist.c_str());
-    // Serial.printf(">>>>>>>>>>>>>>>>>[TERMINAL DEBUG] Title : %s\n", title.c_str());
-    // telnet.printf(">>>>>>>>>>>>>>>>>>##DEBUG# Artist: %s\n", artist.c_str());
-    // telnet.printf(">>>>>>>>>>>>>>>>>>>>##DEBUG# Title : %s\n", title.c_str());
     MH.writeStationNameUtf16le(50, artist.c_str(), false);                         
-Serial.println(">>>>>>>>>>>>>>>>>[MODBUS DEBUG] Artist registers:");
-//for (uint16_t i = 50; i < 50 + 50; i++) {  // 50 регистров для Artist
-    //uint16_t val = artist.c_str()(i);            // читаем значение регистра
-    // Выводим HEX и Unicode символ
-//     Serial.printf("Reg[%d] = 0x%04X ", i, val);
-//     if (val == 0x0020) {
-//         Serial.println("(space)");
-//     } else if (val < 0x80) {
-//         Serial.printf("('%c')\n", (char)val); // ASCII
-//     } else {
-//         Serial.printf("(UTF-16: 0x%04X)\n", val); // юникод
-//     }
-// }
-
     MH.writeStationNameUtf16le(100, title.c_str(), false);
     break;
 }
-      //case TITLE:         sprintf (wsBuf, "{\"payload\":[{\"id\":\"meta\", \"value\": \"%s\"}]}", config.station.title); telnet.printf("##CLI.META#: %s\n> ", config.station.title); break;
-     //---------------------Конец кода для записи в регистры имени исполнителя и композиции-------------------------
       case VOLUME:        sprintf (wsBuf, "{\"payload\":[{\"id\":\"volume\", \"value\": %d}]}", config.store.volume); telnet.printf("##CLI.VOL#: %d\n", config.store.volume); break;
-      case NRSSI:         sprintf (wsBuf, "{\"payload\":[{\"id\":\"rssi\", \"value\": %d}, {\"id\":\"heap\", \"value\": %d}]}", rssi, (player.isRunning() && config.store.audioinfo)?(int)(100*player.inBufferFilled()/playerBufMax):0); /*rssi = 255;*/ 
-      MH.writeIntRegister(180, rssi);
-      break;    
+      case NRSSI:        { sprintf (wsBuf, "{\"payload\":[{\"id\":\"rssi\", \"value\": %d}, {\"id\":\"heap\", \"value\": %d}]}", rssi, (player.isRunning() && config.store.audioinfo)?(int)(100*player.inBufferFilled()/playerBufMax):0);/*rssi = 255;*/ 
+      int quality = map(rssi, -100, -30, 0, 100);//Преобразуем...
+      if (quality < 0) quality = 0;//в диапазон...
+      if (quality < 0) quality = 0;//0...100
+      if (quality > 100) quality = 100;
+      MH.writeIntRegister(180, quality);
+      break;    }
       case SDPOS:         sprintf (wsBuf, "{\"sdpos\": %lu,\"sdend\": %lu,\"sdtpos\": %lu,\"sdtend\": %lu}", 
                                   player.getFilePos(), 
                                   player.getFileSize(), 

@@ -214,6 +214,7 @@ void Player::setOutputPins(bool isPlaying) {
 ModbusHandler MH;
 void Player::_play(uint16_t stationId) {
   log_i("%s called, stationId=%d", __func__, stationId);
+  Serial.printf(">>>>>>>>>>>>>>stationId = %d\n", stationId);
   _hasError=false;
   setDefaults();
   _status = STOPPED;
