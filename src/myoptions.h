@@ -15,6 +15,13 @@
 #define L10N_LANGUAGE			EN
 #define DSP_MODEL			DSP_ILI9488
 #define BRIGHTNESS_PIN			255
+// #define I2S_INTERNAL			true
+// #define PLAYER_FORCE_MONO			true
+// #define BTN_LEFT			26
+// #define BTN_CENTER			14
+// #define BTN_RIGHT			25
+// #define BTN_MODE			27
+// #define BTN_INTERNALPULLUP			true
 
 
 #endif

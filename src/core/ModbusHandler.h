@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
+#include "core/player.h"
 
 // Настройки — поменяй при необходимости
 #define MODBUS_UART       UART_NUM_2
@@ -145,11 +146,32 @@ private:
     }
     // Собственно задача: только mb.task()
     void modbusTask() {
-        for (;;) {
-            mb.task();          // единственный корректный вызов для этой библиотеки
-            vTaskDelay(pdMS_TO_TICKS(1)); // даём CPU другим задачам
+    uint16_t prevReg200 = 0xFFFF; // специально недостижимое начальное значение
+
+    for (;;) {
+        mb.task();
+
+        uint16_t reg200 = mb.Hreg(200);
+
+        // выводим только если значение изменилось
+        if (reg200 != prevReg200) {
+            Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..reg190 = 0x%04X (%u)\n", reg200, reg200);
+            prevReg200 = reg200;
         }
+
+        // проверка битов (пример с NEXT)
+        if (reg200 & 0x01) {
+            player.sendCommand({PR_PLAY, config.lastStation() + 1});
+            mb.Hreg(200, 0);
+        }
+        else if(reg200 & 0x02)
+        {player.sendCommand({PR_PLAY, config.lastStation() - 1});
+            mb.Hreg(200, 0);
+        }
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
+}
+
     // Данные
     uint16_t holdingRegisters[MODBUS_REG_COUNT] = {0};
     ModbusRTU mb;

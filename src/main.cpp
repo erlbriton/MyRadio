@@ -113,6 +113,7 @@ void setup() {
   if (config.store.smartstart == 1) {
     delay(250);
     player.sendCommand({PR_PLAY, config.lastStation()});
+    //player.sendCommand({PR_PLAY, 14});
   }
   pm.on_end_setup();
   //---------------------------------------------------------------------------------

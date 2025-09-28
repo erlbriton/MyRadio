@@ -148,7 +148,7 @@ void Player::loop() {
       case PR_PLAY: {
         if (requestP.payload>0) {
           config.setLastStation((uint16_t)requestP.payload);
-        }
+        } 
         _play((uint16_t)abs(requestP.payload)); 
         if (player_on_station_change) player_on_station_change(); 
         pm.on_station_change();
@@ -211,17 +211,8 @@ void Player::setOutputPins(bool isPlaying) {
   bool _ml = MUTE_LOCK?!MUTE_VAL:(isPlaying?!MUTE_VAL:MUTE_VAL);
   if(MUTE_PIN!=255) digitalWrite(MUTE_PIN, _ml);
 }
-ModbusHandler MH;
 void Player::_play(uint16_t stationId) {
   log_i("%s called, stationId=%d", __func__, stationId);
-  Serial.printf(">>>>>>>>>>>>>>stationId = %d\n", stationId);
-  _hasError=false;
-  setDefaults();
-  _status = STOPPED;
-  setOutputPins(false);
-  remoteStationName = false;
-
-  
   if(!config.prepareForPlaying(stationId)) return;
   _loadVol(config.store.volume);
   

@@ -163,19 +163,19 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 
 /*        BUTTONS                 */
 #ifndef BTN_LEFT
-  #define BTN_LEFT              255
+  #define BTN_LEFT              12
 #endif
 #ifndef BTN_CENTER
   #define BTN_CENTER            255
 #endif
 #ifndef BTN_RIGHT
-  #define BTN_RIGHT             255
+  #define BTN_RIGHT             13
 #endif
 #ifndef BTN_UP
   #define BTN_UP            255
 #endif
 #ifndef BTN_DOWN
-  #define BTN_DOWN             255
+  #define BTN_DOWN             2
 #endif
 #ifndef BTN_MODE
   #define BTN_MODE             255

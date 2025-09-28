@@ -270,7 +270,7 @@ void NetServer::processQueue(){
                                   break;
       case DSPON:         sprintf (wsBuf, "{\"dspontrue\":%d}", 1); break;
       case STATION:       requestOnChange(STATIONNAME, clientId); requestOnChange(ITEM, clientId); 
-      Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>..STATION case called, clientId = %u\n", clientId);
+      //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>..STATION case called, clientId = %u\n", clientId);//Всегда "0"
       break;
       case STATIONNAME: {  sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); 
       MH.writeStationNameUtf16le(0, config.station.name, true);

@@ -16,6 +16,7 @@
 #include "flac_decoder/flac_decoder.h"
 #include "../core/config.h"
 #include "core/ModbusHandler.h"
+#include "core/player.h"
 
 
 #ifdef SDFATFS_USED
@@ -387,6 +388,9 @@ void Audio::connectTask(void* pvParams) {
 }
 
 //---------------------------------------------------------------------------------------------------------------------
+ ModbusHandler MH;
+ Player playerID;
+uint16_t stationId_Old = 0;
 bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
     uint8_t i = 0;
     // user and pwd for authentification only, can be empty
@@ -447,24 +451,16 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
         port = atoi(h_host + pos_colon + 1);// Get portnumber as integer
         hostwoext[pos_colon] = '\0';// Host without portnumber
     }
-    ModbusHandler MH;
-    //uint8_t i = 0;
+    
     AUDIO_INFO("Connect to new host: \"%s\"", l_host);
-    //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. l_host = %s\n", l_host);
-   // std::string safeHost(l_host);   // в стиле C++
-   // MH.writeStationNameUtf16le(190, safeHost.c_str(), false);
-   if (i == 0){
-    MH.writeStationNameUtf16le(190, l_host, false);
-    i = 1;
-   }
-
-// делаем копию строки в свой буфер
-// static char hostCopy[128]; // размер под твои URL
-// strncpy(hostCopy, l_host, sizeof(hostCopy) - 1);
-// hostCopy[sizeof(hostCopy) - 1] = '\0'; // защита от переполнения
-
-// // теперь передаём копию, которая не изменится
-// MH.writeStationNameUtf16le(190, hostCopy, false);
+    
+//     if (!player.ipPrinted) {
+//     char hostCopy[128];              // буфер достаточного размера
+//     strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
+//     hostCopy[sizeof(hostCopy)-1] = '\0';  // гарантируем нуль-терминатор
+//     MH.writeStationNameUtf16le(190, hostCopy, false);
+//     player.ipPrinted = true;         // больше не вызываем для этой станции
+// }
 
     setDefaults(); // no need to stop clients if connection is established (default is true)
 
@@ -502,6 +498,14 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
     strcat(rqh, "Accept-Encoding: identity;q=1,*;q=0\r\n");
     strcat(rqh, "User-Agent: Mozilla/5.0\r\n");
     strcat(rqh, "Connection: keep-alive\r\n\r\n");
+// uint8_t j =0;
+//     char hostCopy[128];              
+//     strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
+//     hostCopy[sizeof(hostCopy)-1] = '\0';  
+//     if(!i){
+//     MH.writeStationNameUtf16le(190, hostCopy, false);
+//     j = j +1;
+//     }
 
     if(ESP_ARDUINO_VERSION_MAJOR == 2 && ESP_ARDUINO_VERSION_MINOR == 0 && ESP_ARDUINO_VERSION_PATCH >= 3 && MAX_AUDIO_SOCKET_TIMEOUT){
         m_timeout_ms_ssl = UINT16_MAX;  // bug in v2.0.3 if hostwoext is a IPaddr not a name
@@ -543,6 +547,12 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
 
     if(res){
         _client->print(rqh);
+
+    //     char hostCopy[128];              
+    // strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
+    // hostCopy[sizeof(hostCopy)-1] = '\0';  
+    // MH.writeStationNameUtf16le(190, hostCopy, false);
+
         if(endsWith(extension, ".mp3"))   m_expectedCodec = CODEC_MP3;
         if(endsWith(extension, ".aac"))   m_expectedCodec = CODEC_AAC;
         if(endsWith(extension, ".wav"))   m_expectedCodec = CODEC_WAV;
@@ -555,6 +565,7 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
 
         setDatamode(HTTP_RESPONSE_HEADER);   // Handle header
         m_streamType = ST_WEBSTREAM;
+
     }
     else{
         AUDIO_INFO("Request %s failed!", l_host);
@@ -3041,6 +3052,7 @@ void Audio::processLocalFile() {
     if(!f_stream && m_controlCounter == 100) {
         f_stream = true;
         AUDIO_INFO("stream ready");
+
         if(m_resumeFilePos){
             if(m_resumeFilePos < m_audioDataStart) m_resumeFilePos = m_audioDataStart;
             if(m_avr_bitrate) m_audioCurrentTime = ((m_resumeFilePos - m_audioDataStart) / m_avr_bitrate) * 8;

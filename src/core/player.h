@@ -36,6 +36,7 @@ class Player: public Audio {
     uint32_t    _resumeFilePos;
     plStatus_e  _status;
     //char        _plError[PLERR_LN];
+
   private:
     void _stop(bool alreadyStopped = false);
     void _play(uint16_t stationId);
@@ -54,6 +55,8 @@ class Player: public Audio {
     char      burl[MQTT_BURL_SIZE];  /* buffer for browseUrl  */
     #endif
   public:
+ //uint16_t station_Id;
+ // bool ipPrinted = false;   // новый флаг, выводили ли уже IP для текущей станции
     Player();
     void init();
     void loop();
