@@ -6,6 +6,7 @@
 #include "controls.h"
 #include "options.h"
 #include "telnet.h"
+#include "network.h"
 
 CommandHandler cmd;
 
@@ -73,6 +74,48 @@ bool CommandHandler::exec(const char *command, const char *value, uint8_t cid) {
   if (strEquals(command, "tzh"))        { config.saveValue(&config.store.tzHour, static_cast<int8_t>(atoi(value))); return true; }
   if (strEquals(command, "tzm"))        { config.saveValue(&config.store.tzMin, static_cast<int8_t>(atoi(value))); return true; }
   if (strEquals(command, "sntp2"))      { config.saveValue(config.store.sntp2, value, 35, false); return true; }
+
+if(strEquals(command, "gettime")) {
+    char wsBuf[256];                 // локальный буфер JSON
+
+    // Используем существующий глобальный объект времени
+    extern MyNetwork network;
+
+    // Получаем текущее время
+    time_t now = mktime(&network.timeinfo);
+    time_t rtcTime = now;
+
+#if RTCSUPPORTED
+    if(config.isRTCFound()) {
+        struct tm rtc_tm;
+        rtc.getTime(&rtc_tm);
+        rtcTime = mktime(&rtc_tm);
+    }
+#endif
+
+    // Формируем JSON
+    sprintf(wsBuf,
+            "{\"tzh\":%d,\"tzm\":%d,\"sntp1\":\"%s\",\"sntp2\":\"%s\","
+            " \"timeint\":%ld,\"timeintrtc\":%ld}",
+            config.store.tzHour,
+            config.store.tzMin,
+            config.store.sntp1,
+            config.store.sntp2,
+            now,
+            rtcTime);
+
+    // Отправляем клиенту через websocket
+    if (strlen(wsBuf) > 0) {
+        if (cid == 0) {
+            websocket.textAll(wsBuf);
+        } else {
+            websocket.text(cid, wsBuf);
+        }
+    }
+
+    return true;
+}
+
   if (strEquals(command, "sntp1"))      { config.setSntpOne(value); return true; }
   if (strEquals(command, "timeint"))    { config.saveValue(&config.store.timeSyncInterval, static_cast<uint16_t>(atoi(value))); return true; }
   if (strEquals(command, "timeintrtc")) { config.saveValue(&config.store.timeSyncIntervalRTC, static_cast<uint16_t>(atoi(value))); return true; }

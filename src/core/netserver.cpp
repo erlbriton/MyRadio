@@ -248,12 +248,14 @@ void NetServer::processQueue(){
                                   config.store.screensaverPlayingBlank);
                                   break;
       case GETTIMEZONE:   sprintf (wsBuf, "{\"tzh\":%d,\"tzm\":%d,\"sntp1\":\"%s\",\"sntp2\":\"%s\", \"timeint\":%d,\"timeintrtc\":%d}", 
+        Serial.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. Вошёл в case GETTIMEZONE <<<"),
                                   config.store.tzHour, 
                                   config.store.tzMin, 
                                   config.store.sntp1, 
                                   config.store.sntp2,
                                   config.store.timeSyncInterval,
                                   config.store.timeSyncIntervalRTC); 
+                                  Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>Время = %d\n", config.store.tzHour);
                                   break;
       case GETWEATHER:    sprintf (wsBuf, "{\"wen\":%d,\"wlat\":\"%s\",\"wlon\":\"%s\",\"wkey\":\"%s\",\"wint\":%d}", 
                                   config.store.showweather, 
@@ -273,7 +275,7 @@ void NetServer::processQueue(){
       //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>..STATION case called, clientId = %u\n", clientId);//Всегда "0"
       break;
       case STATIONNAME: {  sprintf (wsBuf, "{\"payload\":[{\"id\":\"nameset\", \"value\": \"%s\"}]}", config.station.name); 
-      MH.writeStationNameUtf16le(0, config.station.name, true);
+      MH.writeStationNameUtf16le(0, config.station.name, false);
       }
       break;
       case ITEM:          sprintf (wsBuf, "{\"current\": %d}", config.lastStation()); break;

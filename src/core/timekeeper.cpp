@@ -6,6 +6,7 @@
 #include "player.h"
 #include "netserver.h"
 #include "rtcsupport.h"
+#include <ModbusRTU.h>
 
 #if RTCSUPPORTED
   //#define TIME_SYNC_INTERVAL  24*60*60*1000
@@ -48,30 +49,90 @@ TimeKeeper::TimeKeeper(){
   #endif
 }
 
-bool TimeKeeper::loop0(){ // core0 (display)
-  uint32_t currentTime = millis();
-  static uint32_t _last1s = 0;
-  static uint32_t _last2s = 0;
-  static uint32_t _last5s = 0;
-  if (currentTime - _last1s >= 1000) { // 1sec
-    _last1s = currentTime;
-#ifndef DUMMYDISPLAY
-  #ifndef UPCLOCK_CORE1
-    _upClock();
-  #endif
-#endif
-  }
-  if (currentTime - _last2s >= 2000) { // 2sec
-    _last2s = currentTime;
-    _upRSSI();
-  }
-  if (currentTime - _last5s >= 5000) { // 5sec
-    _last5s = currentTime;
-    //HEAP_INFO();
-  }
+// bool TimeKeeper::loop0(){ // core0 (display)
+//   uint32_t currentTime = millis();
+//   static uint32_t _last1s = 0;
+//   static uint32_t _last2s = 0;
+//   static uint32_t _last5s = 0;
+//   if (currentTime - _last1s >= 1000) { // 1sec
+//     _last1s = currentTime;
+// #ifndef DUMMYDISPLAY
+//   #ifndef UPCLOCK_CORE1
+//     _upClock();
+//   #endif
+// #endif
+//   }
+//   if (currentTime - _last2s >= 2000) { // 2sec
+//     _last2s = currentTime;
+//     _upRSSI();
+//   }
+//   if (currentTime - _last5s >= 5000) { // 5sec
+//     _last5s = currentTime;
+//     //HEAP_INFO();
+//   }
 
-  return true; // just in case
+//   return true; // just in case
+// }
+
+bool TimeKeeper::loop0(){ // core0 (display)
+    uint32_t currentTime = millis();
+    static uint32_t _last1s = 0;
+    static uint32_t _last2s = 0;
+    static uint32_t _last5s = 0;
+
+    if (currentTime - _last1s >= 1000) { // 1sec
+        _last1s = currentTime;
+
+#ifndef DUMMYDISPLAY
+    #ifndef UPCLOCK_CORE1
+        _upClock();
+    #endif
+#endif
+ModbusRTU mb;
+        // --- запись H/M/S в Modbus каждый цикл 1 секунда ---
+        {
+            struct tm *tm = &network.timeinfo;
+            // uint16_t hourDec = (uint16_t)tm->tm_hour / 10;//Десятки часов
+            // uint16_t hourUnit = (uint16_t)tm->tm_hour % 10;//Единицы часов
+            // uint16_t minuteDec = (uint16_t)tm->tm_min / 10;//Десятки минут
+            // uint16_t minuteUnit = (uint16_t)tm->tm_min % 10;//Единицы минут
+            // uint16_t secondDec = (uint16_t)tm->tm_sec / 10;//Десятки секунд
+            // uint16_t secondUnit = (uint16_t)tm->tm_sec % 10;//Единицы секунд
+
+            // mb.Hreg(220, hourDec);//Десятки часов
+            // mb.Hreg(221, hourUnit);//Единицы часов
+            // mb.Hreg(222, minuteDec);//Десятки минут
+            // mb.Hreg(223, minuteUnit);//Единицы минут
+            // mb.Hreg(224, secondDec);//Десятки секунд
+            // mb.Hreg(225, secondUnit);//Единицы секунд
+
+            mb.Hreg(220, (uint16_t)tm->tm_hour / 10);
+            mb.Hreg(221, (uint16_t)tm->tm_hour % 10);
+            mb.Hreg(222, (uint16_t)tm->tm_min / 10); 
+            mb.Hreg(223, (uint16_t)tm->tm_min % 10);
+            mb.Hreg(223, (uint16_t)tm->tm_sec / 10);
+            mb.Hreg(223, (uint16_t)tm->tm_sec % 10);
+
+
+
+
+        }
+        // --- конец вставки ---
+    }
+
+    if (currentTime - _last2s >= 2000) { // 2sec
+        _last2s = currentTime;
+        _upRSSI();
+    }
+
+    if (currentTime - _last5s >= 5000) { // 5sec
+        _last5s = currentTime;
+        //HEAP_INFO();
+    }
+
+    return true; // just in case
 }
+
 
 bool TimeKeeper::loop1(){ // core1 (player)
   uint32_t currentTime = millis();
@@ -204,27 +265,74 @@ void TimeKeeper::_upSDPos(){
   if(player.isRunning() && config.getMode()==PM_SDCARD) netserver.requestOnChange(SDPOS, 0);
 }
 
-void TimeKeeper::timeTask(){
-  static uint8_t tsFailCnt = 0;
-  if(getLocalTime(&network.timeinfo)){
-    tsFailCnt = 0;
-    forceTimeSync = false;
-    mktime(&network.timeinfo);
-    display.putRequest(CLOCK);
-    network.requestTimeSync(true);
-    #if RTCSUPPORTED
-      if (config.isRTCFound()) rtc.setTime(&network.timeinfo);
-    #endif
-  }else{
-    if(tsFailCnt<4){
-      forceTimeSync = true;
-      tsFailCnt++;
-    }else{
-      forceTimeSync = false;
-      tsFailCnt=0;
+// void TimeKeeper::timeTask(){
+//   static uint8_t tsFailCnt = 0;
+//   if(getLocalTime(&network.timeinfo)){
+//     tsFailCnt = 0;
+//     forceTimeSync = false;
+//     mktime(&network.timeinfo);
+//     display.putRequest(CLOCK);
+//     network.requestTimeSync(true);
+//     #if RTCSUPPORTED
+//       if (config.isRTCFound()) rtc.setTime(&network.timeinfo);
+//     #endif
+//   }else{
+//     if(tsFailCnt<4){
+//       forceTimeSync = true;
+//       tsFailCnt++;
+//     }else{
+//       forceTimeSync = false;
+//       tsFailCnt=0;
+//     }
+//   }
+// }
+//ModbusRTU mb;
+void TimeKeeper::timeTask() {
+    static uint8_t tsFailCnt = 0;
+
+    if(getLocalTime(&network.timeinfo)) {
+        tsFailCnt = 0;
+        forceTimeSync = false;
+
+        // Преобразуем struct tm в time_t
+        mktime(&network.timeinfo);
+
+        // --- запись H/M/S в Modbus ---
+        // {
+        //     struct tm *tm = &network.timeinfo;
+
+        //     mb.Hreg(220, (uint16_t)tm->tm_hour);   // часы
+        //     mb.Hreg(221, (uint16_t)tm->tm_min);    // минуты
+        //     mb.Hreg(222, (uint16_t)tm->tm_sec);    // секунды
+        //     uint16_t hour   = mb.Hreg(220);
+        //     uint16_t minute = mb.Hreg(221);
+        //     uint16_t second = mb.Hreg(222);
+        //     printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.Modbus Time: %02u:%02u:%02u\n", hour, minute, second);
+        // }
+        // --- конец вставки ---
+
+        display.putRequest(CLOCK);
+        network.requestTimeSync(true);
+
+#if RTCSUPPORTED
+        if (config.isRTCFound()) {
+            rtc.setTime(&network.timeinfo);
+        }
+#endif
+
+    } else {
+        if(tsFailCnt < 4) {
+            forceTimeSync = true;
+            tsFailCnt++;
+        } else {
+            forceTimeSync = false;
+            tsFailCnt = 0;
+        }
     }
-  }
 }
+
+
+
 void TimeKeeper::weatherTask(){
   if(!weatherBuf || strlen(config.store.weatherkey)==0 || !config.store.showweather) return;
   forceWeather = false;

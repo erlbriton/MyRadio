@@ -7,6 +7,8 @@
 #include "freertos/task.h"
 #include "freertos/semphr.h"
 #include "core/player.h"
+#include "audioI2S/AudioEx.h"
+#include "core/player.h"
 
 // Настройки — поменяй при необходимости
 #define MODBUS_UART       UART_NUM_2
@@ -28,10 +30,10 @@ public:
     void begin(uint8_t slaveId) {
         // Создаём мьютекс для защиты holdingRegisters
         registerMutex = xSemaphoreCreateMutex();
-        if (!registerMutex) {
-            Serial.println("ModbusHandler: failed to create mutex");
-            // продолжим, но методы чтения/записи будут небезопасны
-        }
+        // if (!registerMutex) {
+        //     Serial.println("ModbusHandler: failed to create mutex");
+        //     // продолжим, но методы чтения/записи будут небезопасны
+        // }
         // Настраиваем аппаратный Serial2 — НЕ используем низкоуровневые драйверы
         // (Serial2.begin автоматически настроит прерывания и внутренний RX-буфер)
         Serial2.begin(MODBUS_BAUDRATE, SERIAL_8N1, MODBUS_RX_PIN, MODBUS_TX_PIN);
@@ -55,9 +57,9 @@ public:
             &taskHandle,
             MODBUS_TASK_CORE
         );
-        if (r != pdPASS) {
-            Serial.println("ModbusHandler: failed to create ModbusTask");
-        }
+        // if (r != pdPASS) {
+        //     Serial.println("ModbusHandler: failed to create ModbusTask");
+        // }
     }
 
 
@@ -146,28 +148,53 @@ private:
     }
     // Собственно задача: только mb.task()
     void modbusTask() {
+        static uint16_t lastVol = 0;  // предыдущее значение громкости
     uint16_t prevReg200 = 0xFFFF; // специально недостижимое начальное значение
-
+    SemaphoreHandle_t volMutex = xSemaphoreCreateMutex();
     for (;;) {
         mb.task();
-
+        //digitalWrite(12, LOW);
+//-----------------------Переключение станций с экрана---------------------------------------------------------------
+static Audio audio;
+static Player plr;
         uint16_t reg200 = mb.Hreg(200);
-
         // выводим только если значение изменилось
         if (reg200 != prevReg200) {
-            Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..reg190 = 0x%04X (%u)\n", reg200, reg200);
             prevReg200 = reg200;
         }
 
         // проверка битов (пример с NEXT)
         if (reg200 & 0x01) {
             player.sendCommand({PR_PLAY, config.lastStation() + 1});
+            audio.setVolume(mb.Hreg(201));
             mb.Hreg(200, 0);
         }
         else if(reg200 & 0x02)
         {player.sendCommand({PR_PLAY, config.lastStation() - 1});
+        audio.setVolume(mb.Hreg(201));
             mb.Hreg(200, 0);
         }
+//----------------------Громкость-----------------------------------------------------------------------------------------
+uint16_t vol = mb.Hreg(201);
+//static Audio audio;
+
+        if (vol != lastVol) {                // если громкость изменилась
+            if (vol > 255) vol = 255;        // страховка
+            audio.setVolume((uint8_t)vol);   // применяем
+            lastVol = vol;                   // сохраняем новое значение
+            //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Volume set to %u\n", vol);  // отладка в терминале
+        }
+
+        // uint16_t reg201 = mb.Hreg(201);
+        // if(xSemaphoreTake(volMutex, pdMS_TO_TICKS(1))) {
+        //     if(reg201 != audio.getVolume()) {
+        //         audio.setVolume(reg201);
+        //     }
+        //     // синхронизация регистра Modbus с текущей громкостью
+        //     mb.Hreg(201, audio.getVolume());
+        //     xSemaphoreGive(volMutex);
+        // }
+
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
