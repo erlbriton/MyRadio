@@ -230,6 +230,7 @@ void NetServer::processQueue(){
                                   config.store.abuff,
                                   config.store.telnet,
                                   config.store.watchdog); 
+                                  Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>VUmeter = %d\n", config.vuThreshold);
                                   break;
       case GETSCREEN:     sprintf (wsBuf, "{\"flip\":%d,\"inv\":%d,\"nump\":%d,\"tsf\":%d,\"tsd\":%d,\"dspon\":%d,\"br\":%d,\"con\":%d,\"scre\":%d,\"scrt\":%d,\"scrb\":%d,\"scrpe\":%d,\"scrpt\":%d,\"scrpb\":%d}", 
                                   config.store.flipscreen, 
@@ -248,14 +249,12 @@ void NetServer::processQueue(){
                                   config.store.screensaverPlayingBlank);
                                   break;
       case GETTIMEZONE:   sprintf (wsBuf, "{\"tzh\":%d,\"tzm\":%d,\"sntp1\":\"%s\",\"sntp2\":\"%s\", \"timeint\":%d,\"timeintrtc\":%d}", 
-        Serial.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. Вошёл в case GETTIMEZONE <<<"),
                                   config.store.tzHour, 
                                   config.store.tzMin, 
                                   config.store.sntp1, 
                                   config.store.sntp2,
                                   config.store.timeSyncInterval,
                                   config.store.timeSyncIntervalRTC); 
-                                  Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>Время = %d\n", config.store.tzHour);
                                   break;
       case GETWEATHER:    sprintf (wsBuf, "{\"wen\":%d,\"wlat\":\"%s\",\"wlon\":\"%s\",\"wkey\":\"%s\",\"wint\":%d}", 
                                   config.store.showweather, 

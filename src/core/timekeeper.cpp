@@ -110,12 +110,8 @@ ModbusRTU mb;
             mb.Hreg(221, (uint16_t)tm->tm_hour % 10);
             mb.Hreg(222, (uint16_t)tm->tm_min / 10); 
             mb.Hreg(223, (uint16_t)tm->tm_min % 10);
-            mb.Hreg(223, (uint16_t)tm->tm_sec / 10);
-            mb.Hreg(223, (uint16_t)tm->tm_sec % 10);
-
-
-
-
+            mb.Hreg(224, (uint16_t)tm->tm_sec / 10);
+            mb.Hreg(225, (uint16_t)tm->tm_sec % 10);
         }
         // --- конец вставки ---
     }
