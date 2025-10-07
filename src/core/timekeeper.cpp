@@ -92,20 +92,6 @@ ModbusRTU mb;
         // --- запись H/M/S в Modbus каждый цикл 1 секунда ---
         {
             struct tm *tm = &network.timeinfo;
-            // uint16_t hourDec = (uint16_t)tm->tm_hour / 10;//Десятки часов
-            // uint16_t hourUnit = (uint16_t)tm->tm_hour % 10;//Единицы часов
-            // uint16_t minuteDec = (uint16_t)tm->tm_min / 10;//Десятки минут
-            // uint16_t minuteUnit = (uint16_t)tm->tm_min % 10;//Единицы минут
-            // uint16_t secondDec = (uint16_t)tm->tm_sec / 10;//Десятки секунд
-            // uint16_t secondUnit = (uint16_t)tm->tm_sec % 10;//Единицы секунд
-
-            // mb.Hreg(220, hourDec);//Десятки часов
-            // mb.Hreg(221, hourUnit);//Единицы часов
-            // mb.Hreg(222, minuteDec);//Десятки минут
-            // mb.Hreg(223, minuteUnit);//Единицы минут
-            // mb.Hreg(224, secondDec);//Десятки секунд
-            // mb.Hreg(225, secondUnit);//Единицы секунд
-
             mb.Hreg(220, (uint16_t)tm->tm_hour / 10);
             mb.Hreg(221, (uint16_t)tm->tm_hour % 10);
             mb.Hreg(222, (uint16_t)tm->tm_min / 10); 

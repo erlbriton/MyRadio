@@ -316,9 +316,11 @@ void NetServer::processQueue(){
       case SDLEN:         sprintf (wsBuf, "{\"sdmin\": %lu,\"sdmax\": %lu}", player.sd_min, player.sd_max); break;
       case SDSNUFFLE:     sprintf (wsBuf, "{\"snuffle\": %d}", config.store.sdsnuffle); break;
       case BITRATE:       { 
-        sprintf (wsBuf, "{\"payload\":[{\"id\":\"bitrate\", \"value\": %d}, {\"id\":\"fmt\", \"value\": \"%s\"}]}", config.station.bitrate, getFormat(config.configFmt));
+      sprintf (wsBuf, "{\"payload\":[{\"id\":\"bitrate\", \"value\": %d}, {\"id\":\"fmt\", \"value\": \"%s\"}]}", config.station.bitrate, getFormat(config.configFmt));
+      MH.writeIntRegister(400, config.station.bitrate);
       char bitrateStr[16];  // буфер под число в текстовом виде
-      sprintf(bitrateStr, "%d", config.station.bitrate);
+      //sprintf(bitrateStr, "%d", config.station.bitrate);
+
       MH.writeStationNameUtf16le(170, bitrateStr, false);
       MH.writeStationNameUtf16le(175, getFormat(config.configFmt), false);
       break;}

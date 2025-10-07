@@ -211,11 +211,13 @@ void Player::setOutputPins(bool isPlaying) {
   bool _ml = MUTE_LOCK?!MUTE_VAL:(isPlaying?!MUTE_VAL:MUTE_VAL);
   if(MUTE_PIN!=255) digitalWrite(MUTE_PIN, _ml);
 }
+ModbusHandler MHH;
 void Player::_play(uint16_t stationId) {
   log_i("%s called, stationId=%d", __func__, stationId);
   if(!config.prepareForPlaying(stationId)) return;
   _loadVol(config.store.volume);
-  
+  MHH.writeIntRegister(500, stationId);
+  //Serial.printf("<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Station ID = %d, URL = %s\n", stationId, config.station.url);
   bool isConnected = false;
   if(config.getMode()==PM_SDCARD && SDC_CS!=255){
     isConnected=connecttoFS(sdman,config.station.url,config.sdResumePos==0?_resumeFilePos:config.sdResumePos-player.sd_min);

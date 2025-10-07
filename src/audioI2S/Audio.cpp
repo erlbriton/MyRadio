@@ -453,14 +453,6 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
     }
     
     AUDIO_INFO("Connect to new host: \"%s\"", l_host);
-    
-//     if (!player.ipPrinted) {
-//     char hostCopy[128];              // буфер достаточного размера
-//     strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
-//     hostCopy[sizeof(hostCopy)-1] = '\0';  // гарантируем нуль-терминатор
-//     MH.writeStationNameUtf16le(190, hostCopy, false);
-//     player.ipPrinted = true;         // больше не вызываем для этой станции
-// }
 
     setDefaults(); // no need to stop clients if connection is established (default is true)
 
@@ -498,14 +490,7 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
     strcat(rqh, "Accept-Encoding: identity;q=1,*;q=0\r\n");
     strcat(rqh, "User-Agent: Mozilla/5.0\r\n");
     strcat(rqh, "Connection: keep-alive\r\n\r\n");
-// uint8_t j =0;
-//     char hostCopy[128];              
-//     strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
-//     hostCopy[sizeof(hostCopy)-1] = '\0';  
-//     if(!i){
-//     MH.writeStationNameUtf16le(190, hostCopy, false);
-//     j = j +1;
-//     }
+
 
     if(ESP_ARDUINO_VERSION_MAJOR == 2 && ESP_ARDUINO_VERSION_MINOR == 0 && ESP_ARDUINO_VERSION_PATCH >= 3 && MAX_AUDIO_SOCKET_TIMEOUT){
         m_timeout_ms_ssl = UINT16_MAX;  // bug in v2.0.3 if hostwoext is a IPaddr not a name
@@ -547,11 +532,6 @@ bool Audio::connecttohost(const char* host, const char* user, const char* pwd) {
 
     if(res){
         _client->print(rqh);
-
-    //     char hostCopy[128];              
-    // strncpy(hostCopy, l_host, sizeof(hostCopy)-1);
-    // hostCopy[sizeof(hostCopy)-1] = '\0';  
-    // MH.writeStationNameUtf16le(190, hostCopy, false);
 
         if(endsWith(extension, ".mp3"))   m_expectedCodec = CODEC_MP3;
         if(endsWith(extension, ".aac"))   m_expectedCodec = CODEC_AAC;
