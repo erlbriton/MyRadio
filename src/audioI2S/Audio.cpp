@@ -2530,6 +2530,9 @@ uint16_t Audio::get_VUlevel(uint16_t dimension){
   if(!config.store.vumeter || config.vuThreshold==0) return 0;
   uint8_t L = map(vuLeft, config.vuThreshold, 0, 0, dimension);
   uint8_t R = map(vuRight, config.vuThreshold, 0, 0, dimension);
+  uint16_t LL = (uint16_t)L;
+  MH.writeIntRegister(450, vuLeft);
+  //Serial.printf("<><><><><><><><><><><><><><><><>VU Left = %d (Threshold=%d, Dimension=%d)\n", L, config.vuThreshold, dimension);
   return (L << 8) | R;
 }
 //---------------------------------------------------------------------------------------------------------------------

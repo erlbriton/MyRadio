@@ -318,6 +318,7 @@ void NetServer::processQueue(){
       case BITRATE:       { 
       sprintf (wsBuf, "{\"payload\":[{\"id\":\"bitrate\", \"value\": %d}, {\"id\":\"fmt\", \"value\": \"%s\"}]}", config.station.bitrate, getFormat(config.configFmt));
       MH.writeIntRegister(400, config.station.bitrate);
+      //MH.writeIntRegister(600, config.station.bitrate);
       char bitrateStr[16];  // буфер под число в текстовом виде
       //sprintf(bitrateStr, "%d", config.station.bitrate);
 
