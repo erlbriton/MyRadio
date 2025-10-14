@@ -147,9 +147,11 @@ private:
         self->modbusTask();
     }
     // Собственно задача: только mb.task()
+    //uint16_t prevReg202 = 0xFFFF;
     void modbusTask() {
         static uint16_t lastVol = 0;  // предыдущее значение громкости
     uint16_t prevReg200 = 0xFFFF; // специально недостижимое начальное значение
+    uint16_t prevReg202 = 0xFFFF; // специально недостижимое начальное значение
     SemaphoreHandle_t volMutex = xSemaphoreCreateMutex();
     for (;;) {
         mb.task();
@@ -170,9 +172,10 @@ static Player plr;
             mb.Hreg(200, 0);
         }
         else if(reg200 & 0x02)
-        {player.sendCommand({PR_PLAY, config.lastStation() - 1});
+        {
+        player.sendCommand({PR_PLAY, config.lastStation() - 1});
         audio.setVolume(mb.Hreg(201));
-            mb.Hreg(200, 0);
+        mb.Hreg(200, 0);
         }
 //----------------------Громкость-----------------------------------------------------------------------------------------
 uint16_t vol = mb.Hreg(201);
@@ -184,16 +187,24 @@ uint16_t vol = mb.Hreg(201);
             lastVol = vol;                   // сохраняем новое значение
             //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Volume set to %u\n", vol);  // отладка в терминале
         }
+//----------------------------Play-Stop---------------------------------------------------------------------------------------------
+uint16_t reg202 = mb.Hreg(202);
+        // выводим только если значение изменилось
+        if (reg202 != prevReg202) {
+            prevReg202 = reg202;
+        }
 
-        // uint16_t reg201 = mb.Hreg(201);
-        // if(xSemaphoreTake(volMutex, pdMS_TO_TICKS(1))) {
-        //     if(reg201 != audio.getVolume()) {
-        //         audio.setVolume(reg201);
-        //     }
-        //     // синхронизация регистра Modbus с текущей громкостью
-        //     mb.Hreg(201, audio.getVolume());
-        //     xSemaphoreGive(volMutex);
-        // }
+        // проверка битов
+        if (reg202 & 0x01) {
+            player.sendCommand({PR_PLAY, config.lastStation()});
+            mb.Hreg(202, 0);
+        }
+        else if(reg202 & 0x02)
+        {
+        player.sendCommand({PR_STOP, config.lastStation()});
+        audio.setVolume(0);
+        mb.Hreg(202, 0);
+        }
 
         vTaskDelay(pdMS_TO_TICKS(10));
     }
