@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=3.3V Pin=DA10-1
+Removed Pin From Net: NetName=GND Pin=DA10-2
+Removed Pin From Net: NetName=CS Pin=DA10-3
+Removed Pin From Net: NetName=DC Pin=DA10-5
+Removed Pin From Net: NetName=MOSI Pin=DA10-6
+Removed Pin From Net: NetName=SCK Pin=DA10-7
+Removed Member From Class: ClassName=Yo-Radio Member=DA10
+Added Pin To Net: NetName=NetR10_2 Pin=R10-2
+Added Pin To Net: NetName=NetR10_2 Pin=X3-7
+Added Net: Name=NetR10_2
+Added Pin To Net: NetName=NetR12_2 Pin=R12-2
+Added Pin To Net: NetName=NetR12_2 Pin=X3-15
+Added Net: Name=NetR12_2

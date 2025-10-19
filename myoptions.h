@@ -13,18 +13,9 @@
 /* !!! Values of 255 must be edited before using (except I2S_DOUT 255 which is used to disable I2S Sound). !!! */
 
 // #define L10N_LANGUAGE			EN
-// #define DSP_MODEL			DSP_ILI9488
-// #define BRIGHTNESS_PIN			255
-// #define I2S_INTERNAL			true
-// #define PLAYER_FORCE_MONO			true
-// #define BTN_LEFT			26
-// #define BTN_CENTER			14
-// #define BTN_RIGHT			25
-// #define BTN_MODE			27
-// #define BTN_INTERNALPULLUP			true
-//#define PLAYER_FORCE_MONO			true
-#define I2S_DOUT			2
-#define I2S_BCLK			13
-#define I2S_LRC			12
+#define DSP_MODEL			DSP_ILI9488
+#define I2S_DOUT			27
+#define I2S_BCLK			26
+#define I2S_LRC			    25
 
 #endif

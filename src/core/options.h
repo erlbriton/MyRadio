@@ -83,10 +83,10 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 
 /*        OLED I2C DISPLAY        */
 #ifndef I2C_SDA
-  #define I2C_SDA 21
+  #define I2C_SDA 255
 #endif
 #ifndef I2C_SCL
-  #define I2C_SCL 22
+  #define I2C_SCL 255
 #endif
 #ifndef I2C_RST
   #define I2C_RST -1
@@ -97,10 +97,10 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
   #define VS1053_CS     255 // 27
 #endif
 #ifndef VS1053_DCS
-  #define VS1053_DCS    25
+  #define VS1053_DCS    255
 #endif
 #ifndef VS1053_DREQ
-  #define VS1053_DREQ   26
+  #define VS1053_DREQ   255
 #endif
 #ifndef VS1053_RST
   #define VS1053_RST    -1    // set to -1 if connected to Esp EN pin
@@ -163,19 +163,19 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 
 /*        BUTTONS                 */
 #ifndef BTN_LEFT
-  #define BTN_LEFT              12
+  #define BTN_LEFT              255
 #endif
 #ifndef BTN_CENTER
   #define BTN_CENTER            255
 #endif
 #ifndef BTN_RIGHT
-  #define BTN_RIGHT             13
+  #define BTN_RIGHT             255
 #endif
 #ifndef BTN_UP
   #define BTN_UP            255
 #endif
 #ifndef BTN_DOWN
-  #define BTN_DOWN             2
+  #define BTN_DOWN             255
 #endif
 #ifndef BTN_MODE
   #define BTN_MODE             255

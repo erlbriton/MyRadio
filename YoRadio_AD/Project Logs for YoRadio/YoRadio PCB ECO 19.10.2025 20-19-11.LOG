@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=GND Pin=DA8-2
+Added Pin To Net: NetName=GNDA Pin=DA8-2
+Added Member To Class: ClassName=Yo-Radio Member=Component C27 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C28 100uF

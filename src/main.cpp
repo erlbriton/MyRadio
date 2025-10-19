@@ -76,7 +76,7 @@ ModbusHandler modbus;
 void setup() {
   Serial.begin(115200);
   //----------------------Modbus--------------------------------------
- modbus.begin(1);  // Slave ID = 1
+ //modbus.begin(1);  // Slave ID = 1
 //----------------------------------------------------------------------------
   if(REAL_LEDBUILTIN!=255) pinMode(REAL_LEDBUILTIN, OUTPUT);
   if (yoradio_on_setup) yoradio_on_setup();

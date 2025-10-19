@@ -1,0 +1,470 @@
+Added Component: Designator=C19(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C20(TC3216-1206-A)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C21(TC7360-2924-E)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD E"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "100uF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C22(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C23(TC7360-2924-E)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD E"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "100uF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C24(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C25(TC7360-2924-E)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD E"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "100uF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C26(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C27(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C28(TC7360-2924-E)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD E"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "100uF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C29(TC3216-1206-A)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C30(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "0.1uF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C31(TC3216-1206-A)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C32(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C33(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C34(cap0805)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD 0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "cap0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C35(TC3216-1206-A)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C36(TC3216-1206-A)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Конденсаторы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "capA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=DA8(PCM5102)
+Added Component: Designator=DA9(PDIP6)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Микросхемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "PDIP-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=DA10(TFT)
+Added Component: Designator=DA11(PDIP6)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Микросхемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "PDIP-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=DA12(PDIP6)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Микросхемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "PDIP-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "SMD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "H11L1SR2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Add component: Footprint Not Found SOT223
+Add component: Footprint Not Found SOT223
+Added Component: Designator=DD2(Wrover)
+Added Component: Designator=J3(PLS-2)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Разъемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "PLS-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "PLS-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4(PLS-2)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Разъемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "PLS-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "PLS-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Add component: Footprint Not Found res0805
+Add component: Footprint Not Found res0805
+Add component: Footprint Not Found res0805
+Add component: Footprint Not Found res0805
+Add component: Footprint Not Found res0805
+Add component: Footprint Not Found res0805
+Added Component: Designator=U3(AM1D_3kV)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Микросхемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = "\DATA\AM1D.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SIP7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "AM1D-0505SH30N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "AM1D-0505SH30N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U4(AM1D_3kV)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Микросхемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = "\DATA\AM1D.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SIP7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "AM1D-0505SH30N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "AM1D-0505SH30N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=X3(PBD-16)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Разъемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "16"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "PBD-16"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "PBD-16"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=X4(PBD-10)
+Add component (AddParameter): Name = "Analog"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Group"; Value = "Разъемы"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoteBOM"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NPads"; Value = "10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "PBD-10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SType"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ValueSCH"; Value = "PBD-10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+U1 Pin=C27-1
+Added Pin To Net: NetName=+U1 Pin=C28-1
+Added Pin To Net: NetName=+U1 Pin=J3-2
+Added Pin To Net: NetName=+U1 Pin=U4-5
+Added Net: Name=+U1
+Added Pin To Net: NetName=+U2 Pin=C33-1
+Added Pin To Net: NetName=+U2 Pin=C36-1
+Added Pin To Net: NetName=+U2 Pin=J4-1
+Added Net: Name=+U2
+Added Pin To Net: NetName=+U3 Pin=C34-1
+Added Pin To Net: NetName=+U3 Pin=C35-1
+Added Pin To Net: NetName=+U3 Pin=J4-2
+Added Net: Name=+U3
+Added Pin To Net: NetName=+U Pin=C25-1
+Added Pin To Net: NetName=+U Pin=C26-1
+Added Pin To Net: NetName=+U Pin=J3-1
+Added Pin To Net: NetName=+U Pin=U4-1
+Added Net: Name=+U
+Added Pin To Net: NetName=3.3V Pin=C20-1
+Added Pin To Net: NetName=3.3V Pin=C29-1
+Added Pin To Net: NetName=3.3V Pin=C30-1
+Added Pin To Net: NetName=3.3V Pin=DA10-1
+Added Pin To Net: NetName=3.3V Pin=X3-1
+Added Net: Name=3.3V
+Added Pin To Net: NetName=5VA Pin=C19-1
+Added Pin To Net: NetName=5VA Pin=C22-1
+Added Pin To Net: NetName=5VA Pin=C23-1
+Added Pin To Net: NetName=5VA Pin=DA8-1
+Added Pin To Net: NetName=5VA Pin=DA9-6
+Added Pin To Net: NetName=5VA Pin=DA11-6
+Added Pin To Net: NetName=5VA Pin=DA12-6
+Added Pin To Net: NetName=5VA Pin=U3-5
+Added Net: Name=5VA
+Added Pin To Net: NetName=5V Pin=C31-1
+Added Pin To Net: NetName=5V Pin=C32-1
+Added Pin To Net: NetName=5V Pin=DD2-19
+Added Net: Name=5V
+Added Pin To Net: NetName=B_CLK Pin=DA8-5
+Added Pin To Net: NetName=B_CLK Pin=DA11-4
+Added Net: Name=B_CLK
+Added Pin To Net: NetName=BCLK Pin=DD2-10
+Added Net: Name=BCLK
+Added Pin To Net: NetName=CS Pin=DA10-3
+Added Pin To Net: NetName=CS Pin=DD2-29
+Added Pin To Net: NetName=CS Pin=X3-5
+Added Net: Name=CS
+Added Pin To Net: NetName=D_OUT Pin=DA8-4
+Added Pin To Net: NetName=D_OUT Pin=DA12-4
+Added Net: Name=D_OUT
+Added Pin To Net: NetName=DC Pin=DA10-5
+Added Pin To Net: NetName=DC Pin=DD2-26
+Added Pin To Net: NetName=DC Pin=X3-9
+Added Net: Name=DC
+Added Pin To Net: NetName=Dir Pin=DD2-23
+Added Pin To Net: NetName=Dir Pin=X4-9
+Added Net: Name=Dir
+Added Pin To Net: NetName=DOUT Pin=DD2-11
+Added Net: Name=DOUT
+Added Pin To Net: NetName=GNDA Pin=C19-2
+Added Pin To Net: NetName=GNDA Pin=C22-2
+Added Pin To Net: NetName=GNDA Pin=C23-2
+Added Pin To Net: NetName=GNDA Pin=DA9-5
+Added Pin To Net: NetName=GNDA Pin=DA11-5
+Added Pin To Net: NetName=GNDA Pin=DA12-5
+Added Pin To Net: NetName=GNDA Pin=U3-3
+Added Net: Name=GNDA
+Added Pin To Net: NetName=GND Pin=C20-2
+Added Pin To Net: NetName=GND Pin=C21-2
+Added Pin To Net: NetName=GND Pin=C24-2
+Added Pin To Net: NetName=GND Pin=C29-2
+Added Pin To Net: NetName=GND Pin=C30-2
+Added Pin To Net: NetName=GND Pin=C31-2
+Added Pin To Net: NetName=GND Pin=C32-2
+Added Pin To Net: NetName=GND Pin=DA8-2
+Added Pin To Net: NetName=GND Pin=DA9-2
+Added Pin To Net: NetName=GND Pin=DA10-2
+Added Pin To Net: NetName=GND Pin=DA11-2
+Added Pin To Net: NetName=GND Pin=DA12-2
+Added Pin To Net: NetName=GND Pin=DD2-14
+Added Pin To Net: NetName=GND Pin=DD2-32
+Added Pin To Net: NetName=GND Pin=DD2-38
+Added Pin To Net: NetName=GND Pin=U3-2
+Added Pin To Net: NetName=GND Pin=X3-3
+Added Net: Name=GND
+Added Pin To Net: NetName=LR_C Pin=DA8-3
+Added Pin To Net: NetName=LR_C Pin=DA9-4
+Added Net: Name=LR_C
+Added Pin To Net: NetName=LRC Pin=DD2-9
+Added Net: Name=LRC
+Added Pin To Net: NetName=MOSI Pin=DA10-6
+Added Pin To Net: NetName=MOSI Pin=DD2-37
+Added Pin To Net: NetName=MOSI Pin=X3-11
+Added Net: Name=MOSI
+Added Pin To Net: NetName=NetC21_1 Pin=C21-1
+Added Pin To Net: NetName=NetC21_1 Pin=C24-1
+Added Pin To Net: NetName=NetC21_1 Pin=U3-1
+Added Net: Name=NetC21_1
+Added Pin To Net: NetName=NetC25_2 Pin=C25-2
+Added Pin To Net: NetName=NetC25_2 Pin=C26-2
+Added Pin To Net: NetName=NetC25_2 Pin=U4-2
+Added Net: Name=NetC25_2
+Added Pin To Net: NetName=NetC27_2 Pin=C27-2
+Added Pin To Net: NetName=NetC27_2 Pin=C28-2
+Added Pin To Net: NetName=NetC27_2 Pin=U4-3
+Added Net: Name=NetC27_2
+Added Pin To Net: NetName=NetC33_2 Pin=C33-2
+Added Pin To Net: NetName=NetC33_2 Pin=C36-2
+Added Net: Name=NetC33_2
+Added Pin To Net: NetName=NetC34_2 Pin=C34-2
+Added Pin To Net: NetName=NetC34_2 Pin=C35-2
+Added Net: Name=NetC34_2
+Added Pin To Net: NetName=NetDA8_7 Pin=DA8-7
+Added Net: Name=NetDA8_7
+Added Pin To Net: NetName=NetDA9_1 Pin=DA9-1
+Added Net: Name=NetDA9_1
+Added Net: Name=NetDA10_4
+Added Pin To Net: NetName=NetDA10_8 Pin=DA10-8
+Added Net: Name=NetDA10_8
+Added Pin To Net: NetName=NetDA11_1 Pin=DA11-1
+Added Net: Name=NetDA11_1
+Added Pin To Net: NetName=NetDA12_1 Pin=DA12-1
+Added Net: Name=NetDA12_1
+Added Pin To Net: NetName=RX2 Pin=DD2-5
+Added Pin To Net: NetName=RX2 Pin=X4-1
+Added Net: Name=RX2
+Added Pin To Net: NetName=SCK Pin=DA10-7
+Added Pin To Net: NetName=SCK Pin=DD2-30
+Added Pin To Net: NetName=SCK Pin=X3-13
+Added Net: Name=SCK
+Added Pin To Net: NetName=TX2 Pin=DD2-7
+Added Pin To Net: NetName=TX2 Pin=X4-5
+Added Net: Name=TX2
+Added Class: Name=Yo-Radio
+Added Rule: Name=Schematic Supply Nets
+Added Rule: Name=Schematic Supply Nets_1

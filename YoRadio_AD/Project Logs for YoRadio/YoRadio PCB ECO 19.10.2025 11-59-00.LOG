@@ -1,0 +1,10 @@
+Added Component: Designator=DA10(TFT)
+Added Pin To Net: NetName=3.3V Pin=DA10-1
+Added Pin To Net: NetName=GND Pin=DA10-2
+Added Pin To Net: NetName=CS Pin=DA10-3
+Added Pin To Net: NetName=NetDA10_4 Pin=DA10-4
+Added Pin To Net: NetName=DC Pin=DA10-5
+Added Pin To Net: NetName=MOSI Pin=DA10-6
+Added Pin To Net: NetName=SCK Pin=DA10-7
+Added Pin To Net: NetName=NetDA10_8 Pin=DA10-8
+Added Member To Class: ClassName=Yo-Radio Member=Component DA10 TFTLCD
