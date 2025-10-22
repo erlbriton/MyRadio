@@ -14,8 +14,10 @@
 
 // #define L10N_LANGUAGE			EN
 #define DSP_MODEL			DSP_ILI9488
-#define I2S_DOUT			27
-#define I2S_BCLK			26
-#define I2S_LRC			    25
-
+#define DSP_HSPI			true
+#define TFT_DC			    25
+#define TFT_CS			    26
+#define I2S_DOUT			2
+#define I2S_BCLK			4
+#define I2S_LRC			    5
 #endif

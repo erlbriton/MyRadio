@@ -1,0 +1,24 @@
+Added Pin To Net: NetName=GND Pin=C10-2
+Added Pin To Net: NetName=GND Pin=C11-2
+Added Pin To Net: NetName=GND Pin=C12-2
+Added Pin To Net: NetName=GND Pin=C16-2
+Added Pin To Net: NetName=GND Pin=C17-2
+Added Pin To Net: NetName=GND Pin=DD3-2
+Added Pin To Net: NetName=GND Pin=DD3-8
+Added Member To Class: ClassName=Yo-Radio Member=Component C13 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C14 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C15 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C18
+Added Member To Class: ClassName=Yo-Radio Member=Component C20 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C21 100uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C23 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C24 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C25 *
+Added Member To Class: ClassName=Yo-Radio Member=Component C26
+Added Member To Class: ClassName=Yo-Radio Member=Component C27 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C28 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C29 100uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C32 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C33 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component R2 100
+Added Member To Class: ClassName=Yo-Radio Member=Component R3 100

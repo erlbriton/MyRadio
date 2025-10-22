@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=GND1 Pin=C15-1
+Added Member To Class: ClassName=Yo-Radio Member=Component C16 100uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C19 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component R1 10k
+Added Member To Class: ClassName=Yo-Radio Member=Component R2 330
+Added Member To Class: ClassName=Yo-Radio Member=Component R3 330

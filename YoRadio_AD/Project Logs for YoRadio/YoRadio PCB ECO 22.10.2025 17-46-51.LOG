@@ -1,0 +1,32 @@
+Removed Pin From Net: NetName=RX2 Pin=DD2-5
+Removed Pin From Net: NetName=TX2 Pin=DD2-7
+Added Pin To Net: NetName=RX2 Pin=DD2-31
+Added Pin To Net: NetName=TX2 Pin=DD2-33
+Added Pin To Net: NetName=G32 Pin=DD2-7
+Added Net: Name=G32
+Added Pin To Net: NetName=G34 Pin=DD2-5
+Added Net: Name=G34
+Added Member To Class: ClassName=Yo-Radio Member=Component C1 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C2 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C3 0.01uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C4 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C5 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C6 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C7 0.01uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C8 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C9 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C10 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C11 0.01uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C12 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C14 0.01uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C15 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C16
+Added Member To Class: ClassName=Yo-Radio Member=Component C17 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C18 6.8uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C19 100uF
+Added Member To Class: ClassName=Yo-Radio Member=Component C20 0.1uF
+Added Member To Class: ClassName=Yo-Radio Member=Component DD2 Wrover38
+Added Member To Class: ClassName=Yo-Radio Member=Component DD3 ADUM1402ARW
+Added Member To Class: ClassName=Yo-Radio Member=Component DD4 RS-485
+Added Member To Class: ClassName=Yo-Radio Member=Component R4 24
+Added Member To Class: ClassName=Yo-Radio Member=Component XP2 15EDGRC-3.5-02P

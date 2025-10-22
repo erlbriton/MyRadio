@@ -64,13 +64,13 @@ The connection tables are located here https://github.com/e2002/yoradio#connecti
 
 /*        TFT DISPLAY             */
 #ifndef TFT_CS
-  #define TFT_CS        5
+  #define TFT_CS        26
 #endif
 #ifndef TFT_RST
   #define TFT_RST       -1   // Or set to -1 and connect to Esp EN pin
 #endif
 #ifndef TFT_DC
-  #define TFT_DC        4
+  #define TFT_DC        25
 #endif
 
 /*        NEXTION                 */
