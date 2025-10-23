@@ -1,8 +1,0 @@
-Added Pin To Net: NetName=3.3V Pin=X3-2
-Added Pin To Net: NetName=GND Pin=X3-4
-Added Pin To Net: NetName=CS Pin=X3-6
-Added Pin To Net: NetName=NetR10_2 Pin=X3-8
-Added Pin To Net: NetName=DC Pin=X3-10
-Added Pin To Net: NetName=MOSI Pin=X3-12
-Added Pin To Net: NetName=SCK Pin=X3-14
-Added Pin To Net: NetName=NetR12_2 Pin=X3-16
