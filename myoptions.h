@@ -17,7 +17,7 @@
 #define DSP_HSPI			true
 #define TFT_DC			    25
 #define TFT_CS			    26
-#define I2S_DOUT			2
-#define I2S_BCLK			4
-#define I2S_LRC			    5
+#define I2S_DOUT			21
+#define I2S_BCLK			22
+#define I2S_LRC			    23
 #endif
