@@ -12,8 +12,8 @@
 
 // Настройки — поменяй при необходимости
 #define MODBUS_UART       UART_NUM_2
-#define MODBUS_TX_PIN     32
-#define MODBUS_RX_PIN     34
+#define MODBUS_TX_PIN     14
+#define MODBUS_RX_PIN     12
 #define MODBUS_BAUDRATE   115200
 #define MODBUS_STACK_SZ   4096
 #define MODBUS_TASK_PRIO  2
