@@ -12,6 +12,7 @@ char Player::myStationName[Player::MYBUF_LEN];//50
 
 Player player;
 QueueHandle_t playerQueue;
+ModbusRTU modbusRTU;
 
 #if VS1053_CS!=255 && !I2S_INTERNAL
   #if VS_HSPI
@@ -139,6 +140,7 @@ void resetPlayer(){
 #ifndef PL_QUEUE_TICKS_ST
   #define PL_QUEUE_TICKS_ST 15
 #endif
+
 void Player::loop() {
   if(playerQueue==NULL) return;
   playerRequestParams_t requestP;
@@ -152,6 +154,11 @@ void Player::loop() {
         _play((uint16_t)abs(requestP.payload)); 
         if (player_on_station_change) player_on_station_change(); 
         pm.on_station_change();
+
+uint16_t vol = modbusRTU.Hreg(201);
+if (vol > 255) vol = 255;
+player.setVol(vol);
+
         break;
       }
       case PR_TOGGLE: {
@@ -159,6 +166,8 @@ void Player::loop() {
         break;
       }
       case PR_VOL: {
+        Serial.print(".payload = ");
+        Serial.println(requestP.payload);
         config.setVolume(requestP.payload);
         Audio::setVolume(volToI2S(requestP.payload));
         break;

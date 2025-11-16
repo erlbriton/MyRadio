@@ -36,6 +36,7 @@ class Player: public Audio {
     uint32_t    _resumeFilePos;
     plStatus_e  _status;
     //char        _plError[PLERR_LN];
+    uint8_t lastVol = 0;  // хранит последнюю применённую громкость
 
   private:
     void _stop(bool alreadyStopped = false);
@@ -47,6 +48,7 @@ class Player: public Audio {
     bool resumeAfterUrl = false;
     volatile bool connproc = true;
     uint32_t sd_min, sd_max;
+    uint8_t modbusVol = 0;
 
     static const uint16_t MYBUF_LEN = 50;
     static char myStationName[MYBUF_LEN];

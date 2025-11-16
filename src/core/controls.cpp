@@ -6,10 +6,12 @@
 #include "display.h"
 #include "network.h"
 #include "netserver.h"
+#include "ModbusHandler.h"
 
 long encOldPosition  = 0;
 long enc2OldPosition  = 0;
 int lpId = -1;
+ModbusRTU mb;
 
 #define ISPUSHBUTTONS BTN_LEFT!=255 || BTN_CENTER!=255 || BTN_RIGHT!=255 || ENC_BTNB!=255 || BTN_UP!=255 || BTN_DOWN!=255 || ENC2_BTNB!=255 || BTN_MODE!=255
 #if ISPUSHBUTTONS
@@ -456,6 +458,7 @@ void controlsEvent(bool toRight, int8_t volDelta) {
       if(nv<0) nv=0;
       if(nv>254) nv=254;
       player.setVol((uint8_t)nv);
+      mb.Hreg(201, nv);
     }else{
       player.stepVol(toRight);
     }

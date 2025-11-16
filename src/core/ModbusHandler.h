@@ -179,11 +179,10 @@ static Player plr;
         }
 //----------------------Громкость-----------------------------------------------------------------------------------------
 uint16_t vol = mb.Hreg(201);
-//static Audio audio;
-
         if (vol != lastVol) {                // если громкость изменилась
-            if (vol > 255) vol = 255;        // страховка
-            audio.setVolume((uint8_t)vol);   // применяем
+            if (vol > 255) vol = 255;   
+            player.modbusVol = vol;     // страховка
+            player.setVol(vol);   // применяем
             lastVol = vol;                   // сохраняем новое значение
             //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Volume set to %u\n", vol);  // отладка в терминале
         }

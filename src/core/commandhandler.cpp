@@ -7,8 +7,10 @@
 #include "options.h"
 #include "telnet.h"
 #include "network.h"
+#include "ModbusHandler.h"
 
 CommandHandler cmd;
+ModbusRTU mbR;
 
 bool CommandHandler::exec(const char *command, const char *value, uint8_t cid) {
   if (strEquals(command, "start"))    { player.sendCommand({PR_PLAY, config.lastStation()}); return true; }
@@ -35,6 +37,7 @@ bool CommandHandler::exec(const char *command, const char *value, uint8_t cid) {
     int v = atoi(value);
     config.store.volume = v < 0 ? 0 : (v > 254 ? 254 : v);
     player.setVol(v);
+    mbR.Hreg(201, v);
     return true;
   }
   if (strEquals(command, "dspon"))     { config.setDspOn(atoi(value)!=0); return true; }

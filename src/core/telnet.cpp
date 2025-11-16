@@ -10,7 +10,7 @@
 
 Telnet telnet;
 
-//ModbusRTU mb;
+ModbusRTU mbRT;
 
 
 bool Telnet::_isIPSet(IPAddress ip) {
@@ -449,6 +449,7 @@ void Telnet::on_input(const char* str, uint8_t clientId) {
       if (volume < 0) volume = 0;
       if (volume > 254) volume = 254;
       player.setVol(volume);
+      mbRT.Hreg(201, volume);
       return;
     }
     if (strcmp(str, "cli.audioinfo") == 0 || strcmp(str, "audioinfo") == 0) {

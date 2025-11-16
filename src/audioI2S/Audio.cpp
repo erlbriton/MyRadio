@@ -4728,7 +4728,7 @@ void Audio::setVolume(uint8_t vol) { // vol 22 steps, 0...21
     m_vol = vol;
 /*    if(vol > 21) vol = 21;
     m_vol = volumetable[vol];*/
-    Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Volume set to %u\n", m_vol);
+    //Serial.printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Volume set to %u\n", m_vol);
 }
 //---------------------------------------------------------------------------------------------------------------------
 uint8_t Audio::getVolume() {
