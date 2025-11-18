@@ -7,6 +7,7 @@
 #include "player.h"
 #include "mqtt.h"
 #include "timekeeper.h"
+#include "ModbusHandler.h"
 
 #ifndef WIFI_ATTEMPTS
   #define WIFI_ATTEMPTS  16
@@ -99,6 +100,7 @@ bool MyNetwork::wifiBegin(bool silent){
 }
 
 void searchWiFi(void * pvParameters){
+  ModbusHandler MHbt;
   if(!network.wifiBegin(true)){
     delay(10000);
     xTaskCreatePinnedToCore(searchWiFi, "searchWiFi", 1024 * 4, NULL, 0, NULL, SEARCH_WIFI_CORE_ID);
@@ -115,6 +117,7 @@ void searchWiFi(void * pvParameters){
 #define DBGAP false
 
 void MyNetwork::begin() {
+  ModbusHandler MHbt;
   BOOTLOG("network.begin");
   config.initNetwork();
   if (config.ssidsCount == 0 || DBGAP) {
@@ -129,6 +132,7 @@ void MyNetwork::begin() {
     }
     Serial.println(".");
     status = CONNECTED;
+    MHbt.writeIntRegister(226, 10);//Переключение экрана при смене АП
     setWifiParams();
   }else{
     status = SDREADY;
@@ -174,6 +178,7 @@ void rebootTime() {
 
 void MyNetwork::raiseSoftAP() {
   WiFi.mode(WIFI_AP);
+  ModbusHandler MHbt;
   WiFi.softAP(apSsid, apPassword);
   Serial.println("##[BOOT]#");
   BOOTLOG("************************************************");
