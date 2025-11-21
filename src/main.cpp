@@ -120,8 +120,19 @@ void setup() {
   pm.on_end_setup();
 
 hs.onCommand = [](uint8_t cmd){
-        Serial.printf("CMD = %u\n", cmd);
-    };
+    switch(cmd){
+        case 2:  player.prev(); break;
+        case 4:  player.next(); break;
+        case 6:  player.sendCommand({PR_STOP});
+        modbus.writeIntRegister(229, 1);//Переключение экрана на "Стоп"
+         break;
+        case 8:  player.sendCommand({PR_PLAY, config.lastStation()}); 
+        modbus.writeIntRegister(229, 0);//Переключение экрана на "Старт"
+        break;
+        case 16: player.stepVol(1); break;
+        case 18: player.stepVol(0); break;
+    }
+};
 
     hs.begin(GPIO_NUM_19);   // твой вход приемника
 
