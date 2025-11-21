@@ -423,14 +423,14 @@ void Telnet::on_input(const char* str, uint8_t clientId) {
     if (strcmp(str, "cli.stop") == 0 || strcmp(str, "stop") == 0) {
       player.sendCommand({PR_STOP, 0});
       ModbusHandler mhRT;
-      mhRT.writeIntRegister(229, 1);
+      mhRT.writeIntRegister(229, 1);//Переключение экрана на "Стоп"
       //info();
       return;
     }
     if (strcmp(str, "cli.start") == 0 || strcmp(str, "start") == 0 || strcmp(str, "cli.play") == 0 || strcmp(str, "play") == 0) {
       player.sendCommand({PR_PLAY, config.lastStation()});
       ModbusHandler mhRT;
-      mhRT.writeIntRegister(229, 0);
+      mhRT.writeIntRegister(229, 0);//Переключение экрана на "Плей"
       return;
     }
     if (strcmp(str, "cli.vol") == 0 || strcmp(str, "vol") == 0) {

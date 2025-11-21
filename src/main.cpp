@@ -10,9 +10,9 @@
 #include "core/mqtt.h"
 #include "core/optionschecker.h"
 #include "core/timekeeper.h"
-//#include <ModbusRTU.h>
 #include "core/ModbusHandler.h"
 #include "core/audiohandlers.h"
+#include "core/HS1527_RMT.h"
 
 
 #if USE_OTA
@@ -30,48 +30,49 @@ SPIClass  SPI2(HOOPSENb);
 
 extern __attribute__((weak)) void yoradio_on_setup();
 
-#if USE_OTA
-void setupOTA(){
-  if(strlen(config.store.mdnsname)>0)
-    ArduinoOTA.setHostname(config.store.mdnsname);
-#ifdef OTA_PASS
-  ArduinoOTA.setPassword(OTA_PASS);
-#endif
-  ArduinoOTA
-    .onStart([]() {
-      player.sendCommand({PR_STOP, 0});
-      display.putRequest(NEWMODE, UPDATING);
-      telnet.printf("Start OTA updating %s\n", ArduinoOTA.getCommand() == U_FLASH?"firmware":"filesystem");
-    })
-    .onEnd([]() {
-      telnet.printf("\nEnd OTA update, Rebooting...\n");
-      ESP.restart();
-    })
-    .onProgress([](unsigned int progress, unsigned int total) {
-      telnet.printf("Progress OTA: %u%%\r", (progress / (total / 100)));
-    })
-    .onError([](ota_error_t error) {
-      telnet.printf("Error[%u]: ", error);
-      if (error == OTA_AUTH_ERROR) {
-        telnet.printf("Auth Failed\n");
-      } else if (error == OTA_BEGIN_ERROR) {
-        telnet.printf("Begin Failed\n");
-      } else if (error == OTA_CONNECT_ERROR) {
-        telnet.printf("Connect Failed\n");
-      } else if (error == OTA_RECEIVE_ERROR) {
-        telnet.printf("Receive Failed\n");
-      } else if (error == OTA_END_ERROR) {
-        telnet.printf("End Failed\n");
-      }
-    });
-  ArduinoOTA.begin();
-}
-#endif
+// #if USE_OTA
+// void setupOTA(){
+//   if(strlen(config.store.mdnsname)>0)
+//     ArduinoOTA.setHostname(config.store.mdnsname);
+// #ifdef OTA_PASS
+//   ArduinoOTA.setPassword(OTA_PASS);
+// #endif
+//   ArduinoOTA
+//     .onStart([]() {
+//       player.sendCommand({PR_STOP, 0});
+//       display.putRequest(NEWMODE, UPDATING);
+//       telnet.printf("Start OTA updating %s\n", ArduinoOTA.getCommand() == U_FLASH?"firmware":"filesystem");
+//     })
+//     .onEnd([]() {
+//       telnet.printf("\nEnd OTA update, Rebooting...\n");
+//       ESP.restart();
+//     })
+//     .onProgress([](unsigned int progress, unsigned int total) {
+//       telnet.printf("Progress OTA: %u%%\r", (progress / (total / 100)));
+//     })
+//     .onError([](ota_error_t error) {
+//       telnet.printf("Error[%u]: ", error);
+//       if (error == OTA_AUTH_ERROR) {
+//         telnet.printf("Auth Failed\n");
+//       } else if (error == OTA_BEGIN_ERROR) {
+//         telnet.printf("Begin Failed\n");
+//       } else if (error == OTA_CONNECT_ERROR) {
+//         telnet.printf("Connect Failed\n");
+//       } else if (error == OTA_RECEIVE_ERROR) {
+//         telnet.printf("Receive Failed\n");
+//       } else if (error == OTA_END_ERROR) {
+//         telnet.printf("End Failed\n");
+//       }
+//     });
+//   ArduinoOTA.begin();
+// }
+// #endif
 
 //ModbusRTU mb;
 // uint16_t reg0 = 0;
 // uint16_t prevReg0 = 0xFFFF; // Для отслеживания изменений
 ModbusHandler modbus;
+HS1527Receiver hs;
 
 void setup() {
   Serial.begin(115200);
@@ -117,11 +118,14 @@ void setup() {
     //player.sendCommand({PR_PLAY, 14});
   }
   pm.on_end_setup();
-  //---------------------------------------------------------------------------------
-//   mb.begin(&Serial2, true); // true = режим обработки с аппаратным буфером (IRQ)
-//   mb.slave(1); // Адрес slave = 1
-//  // Добавляем Holding-регистр 0
-//   mb.addHreg(0, reg0); // Изначально = 0
+
+hs.onCommand = [](uint8_t cmd){
+        Serial.printf("CMD = %u\n", cmd);
+    };
+
+    hs.begin(GPIO_NUM_19);   // твой вход приемника
+
+    Serial.println("HS1527 receiver started");
 }
 
 void loop() {
@@ -135,6 +139,7 @@ void loop() {
   }
   loopControls();
   netserver.loop();
+   //hs.loop();
   
 
   //---------------------Проверка UART------------------------------------------
