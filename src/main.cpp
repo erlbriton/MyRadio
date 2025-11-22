@@ -121,16 +121,15 @@ void setup() {
 
 hs.onCommand = [](uint8_t cmd){
     switch(cmd){
-        case 2:  player.prev(); break;
-        case 4:  player.next(); break;
-        case 6:  player.sendCommand({PR_STOP});
-        modbus.writeIntRegister(229, 1);//Переключение экрана на "Стоп"
-         break;
-        case 8:  player.sendCommand({PR_PLAY, config.lastStation()}); 
-        modbus.writeIntRegister(229, 0);//Переключение экрана на "Старт"
-        break;
-        case 16: player.stepVol(1); break;
-        case 18: player.stepVol(0); break;
+
+        case 2:  player.next(); break;//Станция+
+        case 6:  player.prev(); break;//Станция-
+        case 4:  player.stepVol(1); break;//Громкость+
+        case 18: player.stepVol(0); break;//Громкость-
+        case 8:  player.sendCommand({PR_STOP});
+        modbus.writeIntRegister(229, 1); break;//Переключение экрана на "Стоп"
+        case 16: player.sendCommand({PR_PLAY, config.lastStation()}); 
+        modbus.writeIntRegister(229, 0); break;//Переключение экрана на "Старт"
     }
 };
 
