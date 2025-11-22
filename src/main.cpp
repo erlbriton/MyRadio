@@ -14,6 +14,7 @@
 #include "core/audiohandlers.h"
 #include "core/HS1527_RMT.h"
 #include <ModbusRTU.h>
+#include "core/player.h"
 
 
 #if USE_OTA
@@ -75,6 +76,7 @@ extern __attribute__((weak)) void yoradio_on_setup();
 ModbusHandler modbus;
 HS1527Receiver hs;
 ModbusRTU mbRTU;
+//Player player;
 
 void setup() {
   Serial.begin(115200);
@@ -117,7 +119,6 @@ void setup() {
   if (config.store.smartstart == 1) {
     delay(250);
     player.sendCommand({PR_PLAY, config.lastStation()});
-    //player.sendCommand({PR_PLAY, 14});
   }
   pm.on_end_setup();
 
@@ -126,10 +127,8 @@ hs.onCommand = [](uint8_t cmd){
 
         case 2:  player.next(); break;//Станция+
         case 6:  player.prev(); break;//Станция-
-        case 4:  player.stepVol(1);//Громкость+
-        mbRTU.Hreg(201, config.store.volume); break;
-        case 18: player.stepVol(0);//Громкость-
-        mbRTU.Hreg(201, config.store.volume); break;
+        case 4:  player.stepVol(1); break;//Громкость+
+        case 18: player.stepVol(0); break;//Громкость-
         case 8:  player.sendCommand({PR_STOP});
         modbus.writeIntRegister(229, 1); break;//Переключение экрана на "Стоп"
         case 16: player.sendCommand({PR_PLAY, config.lastStation()}); 
@@ -137,9 +136,7 @@ hs.onCommand = [](uint8_t cmd){
     }
 };
 
-    hs.begin(GPIO_NUM_19);   // твой вход приемника
-
-    Serial.println("HS1527 receiver started");
+    hs.begin(GPIO_NUM_19);//вход приемника
 }
 
 void loop() {

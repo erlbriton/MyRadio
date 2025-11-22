@@ -339,7 +339,9 @@ void Player::_loadVol(uint8_t volume) {
 }
 
 void Player::setVol(uint8_t volume) {
+  config.store.volume = volume;//Мой код
   _volTicks = millis();
   _volTimer = true;
   player.sendCommand({PR_VOL, volume});
+  modbusRTU.Hreg(201, config.store.volume);//Синхронизация показаний громкости на экране 
 }
