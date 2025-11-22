@@ -13,6 +13,7 @@
 #include "core/ModbusHandler.h"
 #include "core/audiohandlers.h"
 #include "core/HS1527_RMT.h"
+#include <ModbusRTU.h>
 
 
 #if USE_OTA
@@ -73,6 +74,7 @@ extern __attribute__((weak)) void yoradio_on_setup();
 // uint16_t prevReg0 = 0xFFFF; // Для отслеживания изменений
 ModbusHandler modbus;
 HS1527Receiver hs;
+ModbusRTU mbRTU;
 
 void setup() {
   Serial.begin(115200);
@@ -124,8 +126,10 @@ hs.onCommand = [](uint8_t cmd){
 
         case 2:  player.next(); break;//Станция+
         case 6:  player.prev(); break;//Станция-
-        case 4:  player.stepVol(1); break;//Громкость+
-        case 18: player.stepVol(0); break;//Громкость-
+        case 4:  player.stepVol(1);//Громкость+
+        mbRTU.Hreg(201, config.store.volume); break;
+        case 18: player.stepVol(0);//Громкость-
+        mbRTU.Hreg(201, config.store.volume); break;
         case 8:  player.sendCommand({PR_STOP});
         modbus.writeIntRegister(229, 1); break;//Переключение экрана на "Стоп"
         case 16: player.sendCommand({PR_PLAY, config.lastStation()}); 
